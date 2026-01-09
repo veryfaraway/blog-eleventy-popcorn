@@ -1,0 +1,87 @@
+:root {
+  --header-height: 64px;
+}
+
+.theme-nav-link {
+  color: #374151;
+  font-weight: 600;
+  transition: transform .15s ease, color .15s ease;
+}
+
+.theme-nav-link:hover {
+  color: #2563eb;
+  transform: translateY(-1px);
+}
+
+.theme-logo-text {
+  color: #0f172a;
+  transition: color .15s ease;
+}
+
+[class*="theme--"] .theme-header {
+  color: var(--theme-text);
+  background-color: transparent;
+  /* 순서: 그라디언트 → 데코 (이미지는 제거) */
+  background-image: var(--theme-bg), var(--theme-deco);
+  background-size: cover, auto;
+  background-repeat: no-repeat, no-repeat;
+  background-position: center, center;
+  border: none;
+}
+
+[class*="theme--"] .theme-nav-link {
+  color: var(--theme-text);
+  font-weight: 600;
+  transition: transform .15s ease, color .15s ease;
+}
+
+[class*="theme--"] .theme-nav-link:hover {
+  color: var(--theme-accent);
+  transform: translateY(-1px);
+}
+
+.theme--christmas .theme-logo-text {
+  color: #e2e8f0;
+}
+
+.theme--christmas {
+  --theme-accent: #e11d48;
+  --theme-accent-light: #f472b6;
+  --theme-text: #e2e8f0;
+  --theme-bg: linear-gradient(135deg,#0f172a 0%,#1e293b 40%,#0ea5e9 100%);
+  --theme-deco: radial-gradient(circle at 20% 20%, rgba(255,255,255,.25) 0 12%, transparent 12%), radial-gradient(circle at 80% 30%, rgba(255,255,255,.18) 0 10%, transparent 10%);
+}
+
+.theme--spring {
+  --theme-accent: #16a34a;
+  --theme-accent-light: #4ade80;
+  --theme-text: #0f172a;
+  --theme-bg: linear-gradient(135deg,#ecfccb 0%,#d9f99d 45%,#86efac 100%);
+  --theme-deco: radial-gradient(circle at 25% 35%, rgba(22,163,74,.18) 0 18%, transparent 18%), radial-gradient(circle at 75% 25%, rgba(34,197,94,.12) 0 14%, transparent 14%);
+}
+
+.theme--summer {
+  --theme-accent: #0284c7;
+  --theme-accent-light: #38bdf8;
+  --theme-text: #0f172a;
+  --theme-bg: linear-gradient(135deg,#cffafe 0%,#7dd3fc 35%,#38bdf8 100%);
+  --theme-deco: radial-gradient(circle at 30% 40%, rgba(2,132,199,.16) 0 18%, transparent 18%), radial-gradient(circle at 80% 30%, rgba(14,165,233,.12) 0 14%, transparent 14%);
+}
+
+.theme--autumn {
+  --theme-accent: #c2410c;
+  --theme-accent-light: #fb923c;
+  --theme-text: #1f2937;
+  --theme-bg: linear-gradient(135deg,#fff7ed 0%,#fed7aa 45%,#fb923c 100%);
+  --theme-deco: radial-gradient(circle at 30% 30%, rgba(194,65,12,.16) 0 18%, transparent 18%), radial-gradient(circle at 75% 40%, rgba(249,115,22,.12) 0 14%, transparent 14%);
+}
+
+/* 모바일 메뉴 배경도 테마 반영 */
+.theme--christmas #mobile-menu,
+.theme--spring #mobile-menu,
+.theme--summer #mobile-menu,
+.theme--autumn #mobile-menu {
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(6px);
+}
+

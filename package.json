@@ -1,0 +1,30 @@
+{
+  "name": "blog-eleventy-tech-ai",
+  "version": "1.0.0",
+  "description": "개인 블로그 - 기술 및 AI에 대한 이야기",
+  "main": "index.js",
+  "scripts": {
+    "dev": "npm run watch:css & eleventy --serve",
+    "build": "ELEVENTY_ENV=production npm run build:css && ELEVENTY_ENV=production eleventy",
+    "watch": "eleventy --watch",
+    "watch:css": "tailwindcss -i ./src/css/input.css -o ./src/css/style.css --watch",
+    "build:css": "tailwindcss -i ./src/css/input.css -o ./src/css/style.css --minify",
+    "new": "node scripts/new-post.js"
+  },
+  "keywords": [
+    "eleventy",
+    "blog",
+    "static-site-generator",
+    "tech",
+    "ai"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@11ty/eleventy": "^3.0.0",
+    "@11ty/eleventy-img": "^4.0.0",
+    "@11ty/eleventy-plugin-syntaxhighlight": "^5.0.0",
+    "@tailwindcss/typography": "^0.5.10",
+    "tailwindcss": "^3.4.0"
+  }
+}

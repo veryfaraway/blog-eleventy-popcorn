@@ -1,0 +1,92 @@
+{% set currentLang = page.lang or "ko" %}
+<!DOCTYPE html>
+<html lang="{{ currentLang }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title or site.title }} - {{ site.title }}</title>
+    <meta name="description" content="{{ description or "영화 속 숨은 디테일, 밤새워 얻어낸 게임 공략, 그리고 여권에 도장 찍히는 설렘이 가득한 여행기를 리포트 형식으로 기록하는 공간" }}">
+    
+    <!-- SEO -->
+    <meta name="keywords" content="{{ keywords or "영화, 게임, 여행 소식" }}">
+    <meta name="author" content="야근반장">
+    <link rel="canonical" href="{{ site.url }}{{ page.url }}">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="{{ title or site.title }}">
+    <meta property="og:description" content="{{ description or site.description }}">
+    <meta property="og:type" content="{{ ogType or "website" }}">
+    <meta property="og:url" content="{{ site.url }}{{ page.url }}">
+    <meta property="og:image" content="{{ site.url }}{{ thumbnail or site.ogImage }}">
+    <meta property="og:site_name" content="{{ site.title }}">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ title or site.title }}">
+    <meta name="twitter:description" content="{{ description or site.description }}">
+    <meta name="twitter:image" content="{{ site.url }}{{ thumbnail or site.ogImage }}">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="{{ site.favicon }}">
+    <link rel="apple-touch-icon" href="{{ site.ogImage }}">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/theme.css">
+    <link rel="stylesheet" href="/css/image-lightbox.css">
+    
+    <!-- Code Copy Script -->
+    <script src="/js/code-copy.js" defer></script>
+    
+    <!-- External Links Script -->
+    <script src="/js/external-links.js" defer></script>
+    
+    <!-- Image Lightbox Script -->
+    <script src="/js/image-lightbox.js" defer></script>
+    
+    <!-- Google Analytics -->
+    {% set gaId = env.googleAnalytics or site.googleAnalytics %}
+    {% if gaId %}
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ gaId }}"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', '{{ gaId }}');
+    </script>
+    {% endif %}
+    
+    <!-- Google AdSense (자동 광고) -->
+    {% set adsenseEnabled = env.adsense.enabled %}
+    {% if adsenseEnabled == null or adsenseEnabled == "" %}
+      {% set adsenseEnabled = site.adsense.enabled %}
+    {% endif %}
+    {% set adsenseClient = env.adsense.client or site.adsense.client %}
+    {% if adsenseEnabled == true and adsenseClient %}
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ adsenseClient }}"
+            crossorigin="anonymous"></script>
+    {% endif %}
+</head>
+<body class="bg-gray-50 text-dark-900{% if theme and theme.current %} theme--{{ theme.current.name }}{% endif %}">
+    <div class="flex flex-col min-h-screen">
+        {% include "header.njk" %}
+        
+        <main class="flex-1 w-full">
+            {{ content | safe }}
+        </main>
+        
+        {% include "footer.njk" %}
+    </div>
+    
+    <script>
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        if (mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+    </script>
+</body>
+</html>

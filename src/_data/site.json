@@ -1,0 +1,28 @@
+{
+  "title": "팝콘 리포트",
+  "description": "영화 속 숨은 디테일, 밤새워 얻어낸 게임 공략, 그리고 여권에 도장 찍히는 설렘이 가득한 여행기를 리포트 형식으로 기록하는 공간",
+  "url": "https://popcorn.eone.one",
+  "language": "ko",
+  "logo": "/assets/logo.svg",
+  "favicon": "/assets/favicon.svg",
+  "ogImage": "/assets/og-image.png",
+  "author": {
+    "name": "야근반장",
+    "bio": "고된 업무에도 희망을 잃지 않고 틈틈이 영화, 게임, 여행을 즐기는 평범한 직장인입니다.",
+    "github": "https://github.com/veryfaraway",
+    "avatar": "/assets/anger.webp"
+  },
+  "googleAnalytics": "",
+  "adsense": {
+    "enabled": false,
+    "client": "ca-pub-XXXXXXXXXXXXXXXX",
+    "slots": {
+      "inArticle": "XXXXXXXXXX",
+      "display": "XXXXXXXXXX"
+    }
+  },
+  "utterances": {
+    "repo": "veryfaraway/blog-eleventy-tech-ai",
+    "enabled": true
+  }
+}

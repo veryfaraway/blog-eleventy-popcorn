@@ -1,0 +1,73 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Build output
+_site/
+dist/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Cache
+.cache/
+.eleventy-cache/
+.sass-cache/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*~
+
+# Deployment
+.netlify/
+.vercel/
+
+# Temporary files
+*.tmp
+*.temp
+.temp/
+tmp/
+
+# Debug
+debug.log
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Optional stylelint cache
+.stylelintcache
+
+# Backup files
+*.bak
+*.backup
