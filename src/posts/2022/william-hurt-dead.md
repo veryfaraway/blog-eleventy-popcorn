@@ -12,7 +12,7 @@ tags:
 thumbnail: /assets/images/william-hurt-dead/featured-image.webp
 ---
 
-배우 윌리엄 허트(William Hurt)가 향년 71세로 사망했습니다.
+배우 {% personInline "윌리엄 허트(William Hurt)", "썬더볼트 로스 장군 역", "https://m.media-amazon.com/images/M/MV5BMTkzNjczMjc2Nl5BMl5BanBnXkFtZTcwMjU2NzMzMw@@._V1_UY317_CR16,0,214,317_AL_.jpg", "", "nm0000458" %}가 향년 71세로 사망했습니다.
 
 그의 아들 윌(Will)은 성명을 통해 아버지가 72세 생일을 일주일 앞둔 2022년 3월 13일 가족들 사이에서 평화롭게 세상을 떠났다고 전했습니다. 사인은 자연사.
 

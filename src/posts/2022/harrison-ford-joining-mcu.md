@@ -14,7 +14,7 @@ tags:
 thumbnail: /assets/images/harrison-ford-joining-mcu/featured-image-preview.jpg
 ---
 
-얼마 전에 [윌리엄 허트가 사망](/posts/2022/william-hurt-dead)했다는 안타까운 소식이 있었는데요, 이번에 해리슨 포드가 윌리엄 허트를 대신하여 '썬더볼트' 로스 장군 역을 맡아 MCU에 합류하게 되었습니다.
+얼마 전에 [윌리엄 허트가 사망](/posts/2022/william-hurt-dead)했다는 안타까운 소식이 있었는데요, 이번에 {% personInline "해리슨 포드", "https://m.media-amazon.com/images/M/MV5BMTY4Mjg0NjIxOV5BMl5BanBnXkFtZTcwMTM2NTI3MQ@@._V1_UY317_CR10,0,214,317_AL_.jpg", "", "nm0000148" %}가 윌리엄 허트를 대신하여 '썬더볼트' 로스 장군 역을 맡아 MCU에 합류하게 되었습니다.
 
 ![](/assets/images/harrison-ford-joining-mcu/featured-image.jpg)
 

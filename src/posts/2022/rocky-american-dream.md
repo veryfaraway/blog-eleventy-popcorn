@@ -13,14 +13,14 @@ tags:
 thumbnail: /assets/images/thumbnail/rocky-american-dream.jpg
 ---
 
+{% person "실베스터 스탤론", "록키 발보아 역 / 각본 / 감독", "https://m.media-amazon.com/images/M/MV5BMTQwMTk3NDU2OV5BMl5BanBnXkFtZTcwNTA3MTI0Mw@@._V1_UY317_CR6,0,214,317_AL_.jpg", "", "nm0000230" %} 
+
 록키(Rocky, 1976)는 이태리계 이민의 후손 출신 청년 록키 발보아(Rocky Balboa)가 가난한 뒷골목 건달로부터 일약 권투 헤비급 세계 챔피언이 되어, 그것을 이어나가는 과정을 감동적으로 그린 대표적 복싱 영화. 
 
 ![Rocky Balboa](/assets/images/rocky-american-dream/featured-image.jpg "Rocky Balboa")
 
 
 소위 '아메리칸 드림(American Dream)'이라는 것을 부활시키는 기폭제가 된 작품으로서, 부지런하고 성실하게 일하면 누구에게나 기회가 온다는 이 관념은 미국을 세계의 지도국으로 끌어올린 정신적 원천이기도 했으나, 60년대 학생 운동과 월남전 패배 등으로 이에 대한 회의적인 시각이 대두되어 왔었다.
-
-<br/>
 
 이러한 생각에 정면으로 반기를 든 것이 <록키>였고, 다소 과장되고 작위적인 면은 있으나 의기소침해있던 미국인들에게 자신감을 다시 심어주는 작은 계기가 되었다. 또한 <록키> 시리즈는 실베스터 스탤론이라는 무명의 배우를 일약 세계적인 스타로 탄생시킴으로써, 이 영화가 말하고자 하는 '아메리칸 드림'을 그대로 실증해준 셈이 되었다. 실제로, 이 영화는 그가 직접 각본을 썼고 2편 이후부터는 감독까지 도맡았다. 
 

@@ -115,6 +115,53 @@ module.exports = function (eleventyConfig) {
     }
   });
 
+  // 인물 카드 shortcode
+  eleventyConfig.addShortcode("person", function (name, role = "", image = "", link = "", imdb = "") {
+    const imageUrl = image || `https://via.placeholder.com/60x60?text=${encodeURIComponent(name)}`;
+    const profileLink = link || (imdb ? `https://www.imdb.com/name/${imdb}/` : "#");
+    const hasLink = link || imdb;
+    
+    // NOTE: 마크다운에서 블록 HTML로 인식되도록 "<div"가 라인 시작에 오게(앞 공백/개행 없이) 반환해야
+    // <p>로 감싸지지 않고, Typography(.prose)의 문단 마진이 붙지 않습니다.
+    return `<div class="person-card not-prose my-3 p-2.5 bg-gradient-to-r from-gray-50 to-gray-100 rounded-lg border border-gray-200 hover:border-primary-300 hover:shadow-md transition-all">
+  <div class="flex items-center gap-2.5">
+    <div class="flex-shrink-0">
+      ${hasLink ? `<a href="${profileLink}" target="_blank" rel="noopener noreferrer">` : ''}
+        <img src="${imageUrl}" 
+             alt="${name}" 
+             class="w-12 h-12 rounded-full object-cover border-2 border-white shadow-sm"
+             onerror="this.src='https://via.placeholder.com/60x60?text=${encodeURIComponent(name)}'">
+      ${hasLink ? '</a>' : ''}
+    </div>
+    <div class="flex-1 min-w-0">
+      <h3 class="text-base font-bold text-gray-900 leading-tight">
+        ${hasLink ? `<a href="${profileLink}" target="_blank" rel="noopener noreferrer" class="hover:text-primary-600 transition-colors">${name}</a>` : name}
+      </h3>
+      ${role ? `<p class="text-sm text-gray-600 mt-0.5">${role}</p>` : ''}
+    </div>
+  </div>
+</div>`;
+  });
+
+  // 인물 미니 링크 shortcode (텍스트 크기 수준의 작은 아바타 링크)
+  eleventyConfig.addShortcode("personInline", function (name, image = "", link = "", imdb = "") {
+    const imageUrl = image || `https://via.placeholder.com/32x32?text=${encodeURIComponent(name)}`;
+    const profileLink = link || (imdb ? `https://www.imdb.com/name/${imdb}/` : "#");
+    const hasLink = link || imdb;
+
+    const content = `<span class="inline-flex items-center gap-1 text-sm font-medium text-primary-700 hover:text-primary-800 underline-offset-4">
+  <img src="${imageUrl}"
+       alt="${name}"
+       class="w-5 h-5 rounded-full object-cover border border-gray-200 inline-block align-middle"
+       onerror="this.src='https://via.placeholder.com/32x32?text=${encodeURIComponent(name)}'">
+  <span class="align-middle">${name}</span>
+</span>`;
+
+    return hasLink
+      ? `<a href="${profileLink}" target="_blank" rel="noopener noreferrer" class="no-underline">${content}</a>`
+      : content;
+  });
+
   // 다국어 번역 필터
   eleventyConfig.addFilter("t", function (key, lang = "ko") {
     const i18n = require("./src/_data/i18n.js");
