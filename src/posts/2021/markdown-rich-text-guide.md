@@ -172,20 +172,114 @@ npm run build
 - 외부 이미지: `https://example.com/image.jpg`
 - 이미지는 `src/assets/` 폴더에 저장
 
-## 8. 텍스트 스타일
+## 8. YouTube 영상 삽입
+
+YouTube 영상을 포스트에 삽입하는 방법입니다.
+
+### 기본 삽입 방법
+
+YouTube 영상의 embed 코드를 사용합니다:
+
+```html
+<div class="video-container">
+  <iframe 
+    src="https://www.youtube.com/embed/VIDEO_ID" 
+    title="YouTube video player" 
+    frameborder="0" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowfullscreen>
+  </iframe>
+</div>
+```
+
+**VIDEO_ID 찾는 방법:**
+- YouTube 영상 URL: `https://www.youtube.com/watch?v=dQw4w9WgXcQ`
+- VIDEO_ID는 `v=` 뒤의 값: `dQw4w9WgXcQ`
+- embed URL: `https://www.youtube.com/embed/dQw4w9WgXcQ`
+
+### 실제 사용 예시
+
+```html
+<div class="video-container">
+  <iframe 
+    src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+    title="YouTube video player" 
+    frameborder="0" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowfullscreen>
+  </iframe>
+</div>
+```
+
+### 반응형 영상 (권장)
+
+반응형으로 영상을 삽입하려면 다음 스타일을 사용하세요:
+
+```html
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; margin: 2rem 0;">
+  <iframe 
+    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+    src="https://www.youtube.com/embed/VIDEO_ID" 
+    title="YouTube video player" 
+    frameborder="0" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowfullscreen>
+  </iframe>
+</div>
+```
+
+**참고:**
+- `padding-bottom: 56.25%`는 16:9 비율을 유지합니다 (9/16 = 0.5625)
+- 4:3 비율을 원하면 `75%`를 사용하세요 (3/4 = 0.75)
+
+### 추가 옵션
+
+YouTube URL에 파라미터를 추가하여 동작을 제어할 수 있습니다:
+
+```html
+<!-- 자동 재생 -->
+<iframe src="https://www.youtube.com/embed/VIDEO_ID?autoplay=1"></iframe>
+
+<!-- 특정 시간부터 시작 (예: 1분 30초) -->
+<iframe src="https://www.youtube.com/embed/VIDEO_ID?start=90"></iframe>
+
+<!-- 컨트롤 숨기기 -->
+<iframe src="https://www.youtube.com/embed/VIDEO_ID?controls=0"></iframe>
+
+<!-- 여러 옵션 조합 -->
+<iframe src="https://www.youtube.com/embed/VIDEO_ID?autoplay=1&start=90&controls=1"></iframe>
+```
+
+<div class="alert alert-info">
+<strong>💡 팁</strong>
+YouTube 영상 페이지에서 <span class="highlight-blue">공유 → 퍼가기</span>를 클릭하면 embed 코드를 바로 복사할 수 있습니다.
+</div>
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; margin: 2rem 0;">
+  <iframe 
+    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+    src="https://www.youtube.com/embed/mA2T8PjVRtM?si=1WeKDO2nHCCWt5TI" 
+    title="YouTube video player" 
+    frameborder="0" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowfullscreen>
+  </iframe>
+</div>
+
+## 9. 텍스트 스타일
 
 - **굵은 글씨** 또는 __굵은 글씨__
 - *기울임* 또는 _기울임_
 - ~~취소선~~
 - **_굵은 기울임_**
 
-## 9. 구분선
+## 10. 구분선
 
 ---
 
 위와 같이 구분선을 추가할 수 있습니다.
 
-## 10. 실전 예제
+## 11. 실전 예제
 
 <div class="alert alert-info">
 <strong>💡 팁</strong>
