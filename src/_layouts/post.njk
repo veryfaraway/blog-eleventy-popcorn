@@ -105,18 +105,25 @@ layout: base.njk
                         </div>
                     </nav>
                     
-                    <!-- 댓글 (utterances) -->
-                    {% set utterancesEnabled = env.utterances.enabled or site.utterances.enabled %}
-                    {% set utterancesRepo = env.utterances.repo or site.utterances.repo %}
-                    {% if utterancesEnabled and utterancesRepo %}
+                    <!-- 댓글 (Disqus) -->
+                    {% set disqusEnabled = env.disqus.enabled or site.disqus.enabled %}
+                    {% set disqusShortname = env.disqus.shortname or site.disqus.shortname %}
+                    {% if disqusEnabled and disqusShortname %}
                     <div class="mt-12 pt-8 border-t border-gray-200">
-                        <script src="https://utteranc.es/client.js"
-                                repo="{{ utterancesRepo }}"
-                                issue-term="pathname"
-                                theme="github-light"
-                                crossorigin="anonymous"
-                                async>
+                        <div id="disqus_thread"></div>
+                        <script>
+                            var disqus_config = function () {
+                                this.page.url = "{{ site.url }}{{ page.url }}";
+                                this.page.identifier = "{{ page.url }}";
+                            };
+                            (function() {
+                                var d = document, s = d.createElement('script');
+                                s.src = 'https://{{ disqusShortname }}.disqus.com/embed.js';
+                                s.setAttribute('data-timestamp', +new Date());
+                                (d.head || d.body).appendChild(s);
+                            })();
                         </script>
+                        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
                     </div>
                     {% endif %}
                 </div>

@@ -12,10 +12,10 @@ module.exports = {
     }
   },
   
-  // Utterances (댓글)
-  utterances: {
-    enabled: process.env.UTTERANCES_ENABLED === "true",
-    repo: process.env.UTTERANCES_REPO || ""
+  // Disqus (댓글)
+  disqus: {
+    enabled: process.env.DISQUS_ENABLED === "true",
+    shortname: process.env.DISQUS_SHORTNAME || ""
   }
 };
 

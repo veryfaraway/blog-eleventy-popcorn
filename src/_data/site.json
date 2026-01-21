@@ -21,8 +21,8 @@
       "display": "XXXXXXXXXX"
     }
   },
-  "utterances": {
-    "repo": "veryfaraway/blog-eleventy-tech-ai",
-    "enabled": true
+  "disqus": {
+    "shortname": "",
+    "enabled": false
   }
 }
