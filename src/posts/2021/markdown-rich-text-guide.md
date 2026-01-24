@@ -174,97 +174,36 @@ npm run build
 
 ## 8. YouTube 영상 삽입
 
-YouTube 영상을 포스트에 삽입하는 방법입니다.
+YouTube 영상을 포스트에 삽입하는 가장 쉬운 방법은 전용 Shortcode를 사용하는 것입니다.
 
-### 기본 삽입 방법
+### Shortcode 사용법 (권장)
 
-YouTube 영상의 embed 코드를 사용합니다:
+영상의 **ID**나 **전체 URL**을 넣으면 자동으로 반응형 16:9 비율로 삽입됩니다.
 
-```html
-<div class="video-container">
-  <iframe 
-    src="https://www.youtube.com/embed/VIDEO_ID" 
-    title="YouTube video player" 
-    frameborder="0" 
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-    allowfullscreen>
-  </iframe>
-</div>
+```liquid
+{{ "{% youtube \"mA2T8PjVRtM\" %}" }}
 ```
 
-**VIDEO_ID 찾는 방법:**
-- YouTube 영상 URL: `https://www.youtube.com/watch?v=dQw4w9WgXcQ`
-- VIDEO_ID는 `v=` 뒤의 값: `dQw4w9WgXcQ`
-- embed URL: `https://www.youtube.com/embed/dQw4w9WgXcQ`
+또는 유튜브 전체 주소를 그대로 복사해서 넣어도 동작합니다:
 
-### 실제 사용 예시
-
-```html
-<div class="video-container">
-  <iframe 
-    src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
-    title="YouTube video player" 
-    frameborder="0" 
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-    allowfullscreen>
-  </iframe>
-</div>
+```liquid
+{{ "{% youtube \"https://www.youtube.com/watch?v=mA2T8PjVRtM\" %}" }}
 ```
 
-### 반응형 영상 (권장)
+### 실제 적용 예시
 
-반응형으로 영상을 삽입하려면 다음 스타일을 사용하세요:
-
-```html
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; margin: 2rem 0;">
-  <iframe 
-    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
-    src="https://www.youtube.com/embed/VIDEO_ID" 
-    title="YouTube video player" 
-    frameborder="0" 
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-    allowfullscreen>
-  </iframe>
-</div>
-```
-
-**참고:**
-- `padding-bottom: 56.25%`는 16:9 비율을 유지합니다 (9/16 = 0.5625)
-- 4:3 비율을 원하면 `75%`를 사용하세요 (3/4 = 0.75)
-
-### 추가 옵션
-
-YouTube URL에 파라미터를 추가하여 동작을 제어할 수 있습니다:
-
-```html
-<!-- 자동 재생 -->
-<iframe src="https://www.youtube.com/embed/VIDEO_ID?autoplay=1"></iframe>
-
-<!-- 특정 시간부터 시작 (예: 1분 30초) -->
-<iframe src="https://www.youtube.com/embed/VIDEO_ID?start=90"></iframe>
-
-<!-- 컨트롤 숨기기 -->
-<iframe src="https://www.youtube.com/embed/VIDEO_ID?controls=0"></iframe>
-
-<!-- 여러 옵션 조합 -->
-<iframe src="https://www.youtube.com/embed/VIDEO_ID?autoplay=1&start=90&controls=1"></iframe>
-```
+{% youtube "mA2T8PjVRtM" %}
 
 <div class="alert alert-info">
 <strong>💡 팁</strong>
-YouTube 영상 페이지에서 <span class="highlight-blue">공유 → 퍼가기</span>를 클릭하면 embed 코드를 바로 복사할 수 있습니다.
+Shortcode를 사용하면 복잡한 iframe 코드 없이도 깔끔하게 영상을 삽입할 수 있으며, 모바일에서도 비율이 깨지지 않고 완벽하게 표시됩니다.
 </div>
 
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; margin: 2rem 0;">
-  <iframe 
-    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
-    src="https://www.youtube.com/embed/mA2T8PjVRtM?si=1WeKDO2nHCCWt5TI" 
-    title="YouTube video player" 
-    frameborder="0" 
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-    allowfullscreen>
-  </iframe>
-</div>
+### 수동 삽입 방법 (Advanced)
+
+Shortcode 대신 직접 커스터마이징이 필요한 경우 아래와 같이 삽입할 수 있습니다:
+
+
 
 ## 9. 텍스트 스타일
 
@@ -279,7 +218,33 @@ YouTube 영상 페이지에서 <span class="highlight-blue">공유 → 퍼가기
 
 위와 같이 구분선을 추가할 수 있습니다.
 
-## 11. 실전 예제
+
+## 11. 버튼
+ 
+버튼을 추가하여 외부 링크나 내부 페이지로 유도할 수 있습니다.
+
+### 버튼 사용법
+
+```liquid
+{# 기본 (accent 스타일) #}
+{{ "{% button \"로튼 토마토 확인하기\", \"https://www.rottentomatoes.com\" %}" }}
+
+{# primary 스타일 #}
+{{ "{% button \"구독하기\", \"/subscribe\", \"primary\" %}" }}
+
+{# outline 스타일 #}
+{{ "{% button \"목록으로\", \"/blog\", \"outline\" %}" }}
+```
+
+### 실제 적용 예시
+
+<div class="flex gap-4 flex-wrap justify-center my-6">
+  {% button "로튼 토마토 확인하기", "https://www.rottentomatoes.com" %}
+  {% button "구독하기", "/subscribe", "primary" %}
+  {% button "목록으로", "/blog", "outline" %}
+</div>
+
+## 12. 실전 예제
 
 <div class="alert alert-info">
 <strong>💡 팁</strong>

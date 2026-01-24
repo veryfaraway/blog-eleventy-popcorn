@@ -120,7 +120,7 @@ module.exports = function (eleventyConfig) {
     const imageUrl = image || `https://via.placeholder.com/60x60?text=${encodeURIComponent(name)}`;
     const profileLink = link || (imdb ? `https://www.imdb.com/name/${imdb}/` : "#");
     const hasLink = link || imdb;
-    
+
     // NOTE: 마크다운에서 블록 HTML로 인식되도록 "<div"가 라인 시작에 오게(앞 공백/개행 없이) 반환해야
     // <p>로 감싸지지 않고, Typography(.prose)의 문단 마진이 붙지 않습니다.
     return `<div class="person-card not-prose my-3 p-2.5 bg-gradient-to-r from-gray-50 to-gray-100 rounded-lg border border-gray-200 hover:border-primary-300 hover:shadow-md transition-all">
@@ -305,6 +305,48 @@ module.exports = function (eleventyConfig) {
     const totalMinutes = Math.ceil(koreanMinutes + englishMinutes);
 
     return totalMinutes > 0 ? totalMinutes : 1;
+  });
+
+  // 버튼 Shortcode (Tailwind 스타일 적용)
+  eleventyConfig.addShortcode("button", function (text, url, variant = "accent") {
+    const baseStyles = "inline-flex items-center justify-center px-6 py-2.5 border border-transparent text-base font-bold rounded-lg shadow-sm transition-all duration-200 no-underline not-prose cursor-pointer my-4 transform hover:-translate-y-0.5 hover:shadow-md";
+
+    let variantStyles = "";
+    if (variant === "primary") {
+      variantStyles = "text-white bg-primary-600 hover:bg-primary-700";
+    } else if (variant === "accent") {
+      variantStyles = "text-white bg-accent-400 hover:bg-accent-500";
+    } else if (variant === "outline") {
+      variantStyles = "text-primary-600 bg-white border-2 border-primary-600 hover:bg-primary-50";
+    } else {
+      variantStyles = "text-white bg-accent-400 hover:bg-accent-500";
+    }
+
+    // 외부 링크 판별 (http로 시작하거나 //로 시작할 경우)
+    const isExternal = /^https?:\/\/|^\/\//i.test(url);
+    const target = isExternal ? ' target="_blank" rel="noopener noreferrer"' : '';
+
+    return `<div class="flex justify-center"><a href="${url}"${target} class="${baseStyles} ${variantStyles}">${text}</a></div>`;
+  });
+
+  // 유튜브 Shortcode (반응형 16:9)
+  eleventyConfig.addShortcode("youtube", function (id, title = "YouTube video player") {
+    // URL에서 ID만 추출하는 정규식
+    let videoId = id;
+    const urlPattern = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i;
+    const match = id.match(urlPattern);
+    if (match) videoId = match[1];
+
+    return `<div class="youtube-wrapper not-prose my-8 relative pb-[56.25%] h-0 overflow-hidden rounded-xl shadow-lg border border-gray-200 bg-gray-100">
+  <iframe 
+    class="absolute top-0 left-0 w-full h-full"
+    src="https://www.youtube.com/embed/${videoId}" 
+    title="${title}" 
+    frameborder="0" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowfullscreen>
+  </iframe>
+</div>`;
   });
 
   // 설정 객체
