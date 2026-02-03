@@ -172,6 +172,36 @@ npm run build
 - 외부 이미지: `https://example.com/image.jpg`
 - 이미지는 `src/assets/` 폴더에 저장
 
+### Cloudinary Shortcode (권장)
+
+Cloudinary에 호스팅된 이미지를 빠르게 반응형으로 삽입하려면 제공된 `cloudinary` Shortcode를 사용하세요. 주요 특징:
+
+- 자동 포맷/품질: `f_auto,q_auto,dpr_auto` 적용
+- 반응형 `srcset` 자동 생성 (480/768/1024/1365)
+- LQIP(작은 흐릿한 이미지)를 배경으로 먼저 보여주고 로드 완료 시 제거
+- `loading="lazy" decoding="async"`가 기본 적용
+
+사용 예시 (문서에 그대로 보이도록 이스케이프):
+
+```liquid
+{{ "{% cloudinary \"https://res.cloudinary.com/doal3ofyr/image/upload/v1770124519/media/series/bob/bob_dukeman_e6y6rs.jpg\", \"윌리엄 듀크먼 상병\" %}" }}
+```
+
+상대 경로나 `upload/` 이후 경로도 전달할 수 있습니다 (기본 도메인 사용):
+
+```liquid
+{{ "{% cloudinary \"/v1770124519/media/series/bob/bob_dukeman_e6y6rs.jpg\", \"윌리엄 듀크먼 상병\", \"(min-width:1024px) 1024px, 100vw\" %}" }}
+```
+
+실제 렌더링 예시 (페이지에서 실제로 이미지가 삽입되어 보입니다):
+
+{% cloudinary "https://res.cloudinary.com/doal3ofyr/image/upload/v1770124519/media/series/bob/bob_dukeman_e6y6rs.jpg", "윌리엄 듀크먼 상병" %}
+
+간단 팁:
+- alt 텍스트는 항상 제공하세요.
+- 이미지 교체 시 캐시 무효화를 위해 Cloudinary 버전(`v1234`)을 사용하면 안전합니다.
+
+
 ## 8. YouTube 영상 삽입
 
 YouTube 영상을 포스트에 삽입하는 가장 쉬운 방법은 전용 Shortcode를 사용하는 것입니다.

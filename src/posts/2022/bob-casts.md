@@ -4,11 +4,13 @@ title: "밴드 오브 브라더스(Band of Brothers) 등장인물 소개"
 lang: ko
 slug: bob-casts
 date: 2022-01-03
+lastmod: 2026-02-03
 draft: false
-description: "밴드 오브 브라더스(Band of Brothers) 주요 등장인물 소개 및 에피소드 정보"
+description: "밴드 오브 브라더스 다시 볼 때 옆에서 아는 척하기 딱 좋은 인물 소개글. 윈터스·립튼·스피어스 같은 주연은 물론, 듀크먼 등 눈여겨볼 조연들의 활약과 실화 배경까지 짚어봅니다."
 category: "아는 척하기 딱 좋은"
 tags:
   - "Band of Brothers"
+  - "밴드 오브 브라더스"
   - HBO
 thumbnail: /assets/images/thumbnail/bob-cover.jpg
 ---
@@ -206,11 +208,17 @@ thumbnail: /assets/images/thumbnail/bob-cover.jpg
 
 
 - **도널드 후블러 상병 Cpl. Donald Hoobler (피터 맥케이브 Peter McCabe)**
-
   ![도널드 후블러 상병](https://res.cloudinary.com/doal3ofyr/image/upload/h_500,q_auto/l_media:series:bob:Donald-Hoobler-Peter-McCabe,h_500,q_auto,x_620/media/series/bob/Pfc_donald_hoobler_506e_ml8qel.jpg "도널드 후블러 상병") 
 
   - 루거 권총의 오발로 어이없는 죽음을 맞았죠. 
   - 금니가 인상적인 병사로 남들은 별로 내키지 않아 하는 부대 첨병을 스스로 맡아서 하기도 했던 군대 체질의 병사입니다.
+
+
+- **윌리엄 듀크먼 상병 Cpl. William Dukeman (마크 로렌스 Mark Lawrence)**
+![윌리엄 듀크먼 상병](https://res.cloudinary.com/doal3ofyr/image/upload/v1770124519/media/series/bob/bob_dukeman_e6y6rs.jpg "윌리엄 듀크먼 상병 / 마크 로렌스") 
+
+- 본명은 윌리엄 하이스터 듀크먼 주니어(William Heister Dukeman Jr.)로, 콜로라도 스트라스버그 출신의 이지 중대 공수부대원입니다. 친구와 함께 자원입대해 캡틴 소블 휘하에서 훈련을 받고, D-Day 공수 강하와 카랑탕 전투, 블러디 걸치 전투까지 실전에 계속 투입됩니다.
+- 노르망디에서 턱 부상을 입고도 부대로 복귀했지만, 1944년 10월 5일 네덜란드 오펜스 인근 둑에서 독일군 진지에서 철수하던 중 배수로 쪽에서 날아온 소총 유탄에 맞아 23세의 나이로 전사합니다. 실제 기록상 **그 둑에서 전사한 유일한 이지 중대원**이라 팬들 사이에서도 자주 언급되는 인물이며, 드라마에서는 짧게 스쳐 지나가지만 실존 인물로서는 꽤 오랜 전투를 함께한 동료였습니다.
 
 
 ### 기타인물
@@ -262,11 +270,6 @@ thumbnail: /assets/images/thumbnail/bob-cover.jpg
 
   - 6부에서 커피를 끓이다가 독일군 저격수의 총에 맞아 쓰러졌던 병사입니다. 
   - 전신마비로 쓰러졌었는데 립튼이 그의 손을 밟고 있었죠.
-
-
-- **윌리엄 두크먼 상병 Cpl. William Dukeman (마크 로렌스 Mark Lawrence)**
-
-  - 5부에서 윈터스의 명령을 받고 이동하다가 총탄에 전사합니다.
 
 
 - **알렉스 펀칼라 상병 Cpl. Alex Penkala (팀 매튜스 Tim Matthews)**

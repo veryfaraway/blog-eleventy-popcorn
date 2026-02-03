@@ -25,6 +25,8 @@ module.exports = function (eleventyConfig) {
 
   // 이미지 처리 필터
   eleventyConfig.addNunjucksAsyncShortcode("image", imageShortcode);
+  // Cloudinary 전용 shortcode (반응형 srcset + LQIP)
+  eleventyConfig.addShortcode("cloudinary", cloudinaryShortcode);
 
   // 날짜 필터
   eleventyConfig.addFilter("dateFilter", function (date) {
@@ -32,6 +34,14 @@ module.exports = function (eleventyConfig) {
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const day = String(date.getDate()).padStart(2, '0');
     return `${year}-${month}-${day}`;
+  });
+
+  // ISO 날짜/시간 필터 (구조화 데이터 등에서 사용)
+  eleventyConfig.addFilter("isoDateTime", function (date) {
+    if (!date) return "";
+    const d = (date instanceof Date) ? date : new Date(date);
+    if (Number.isNaN(d.getTime())) return "";
+    return d.toISOString();
   });
 
   // limit 필터
@@ -376,4 +386,59 @@ async function imageShortcode(src, alt) {
   };
 
   return Image.generateHTML(metadata, imageAttributes);
+}
+
+// Cloudinary shortcode: 입력으로 Cloudinary URL(또는 upload/ 이후 경로)과 alt를 받습니다.
+// 출력: LQIP 배경을 가진 wrapper + picture/img (f_auto,q_auto,dpr_auto 적용)
+function cloudinaryShortcode(src, alt = "", sizes = "(max-width:720px) 100vw, 720px") {
+  if (!src) return "";
+
+  // src가 전체 URL인지, 아니면 upload/ 이후 경로인지 판별
+  let base;
+  let publicId;
+
+  try {
+    if (src.startsWith('http')) {
+      const uploadIdx = src.indexOf('/image/upload/');
+      if (uploadIdx === -1) {
+        // URL이지만 Cloudinary 패턴을 못 찾으면 그대로 fallback
+        base = src;
+        publicId = '';
+      } else {
+        base = src.slice(0, uploadIdx + '/image/upload/'.length);
+        publicId = src.slice(uploadIdx + '/image/upload/'.length);
+      }
+    } else {
+      // 상대 경로로 전달된 경우(예: "v1234/path.jpg" 또는 "media/.."), 기본 도메인 사용
+      base = 'https://res.cloudinary.com/doal3ofyr/image/upload/';
+      publicId = src.replace(/^\//, '');
+    }
+  } catch (e) {
+    return '';
+  }
+
+  const widths = [480, 768, 1024, 1365];
+  const srcset = widths.map(w => `${base}f_auto,q_auto,w_${w},dpr_auto/${publicId} ${w}w`).join(', ');
+
+  // 기본 src는 중간 크기
+  const defaultWidth = 720;
+  const srcDefault = `${base}f_auto,q_auto,w_${defaultWidth},dpr_auto/${publicId}`;
+
+  // LQIP (작고 흐릿한 이미지)
+  const lqip = `${base}f_auto,q_1,w_20,e_blur:200/${publicId}`;
+
+  const escAlt = (alt || '').replace(/"/g, '&quot;');
+
+  // wrapper의 background-image로 LQIP를 사용하고, 이미지 로드 완료 시 제거
+  return `<div class="cloudinary-image not-prose my-6" style="background-image:url('${lqip}');background-size:cover;background-position:center;">
+  <picture>
+    <img src="${srcDefault}"
+         srcset="${srcset}"
+         sizes="${sizes}"
+         alt="${escAlt}"
+         loading="lazy"
+         decoding="async"
+         onload="this.parentNode.parentNode.style.backgroundImage='none'"/>
+  </picture>
+</div>`;
 }

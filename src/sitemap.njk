@@ -8,7 +8,8 @@ eleventyExcludeFromCollections: true
   {%- if not page.data.draft %}
   <url>
     <loc>{{ site.url }}{{ page.url | url }}</loc>
-    <lastmod>{{ page.date | dateFilter }}</lastmod>
+    {%- set lastModDate = page.data.updated or page.data.lastmod or page.date %}
+    <lastmod>{{ lastModDate | dateFilter }}</lastmod>
     {%- if page.url == "/" %}
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
