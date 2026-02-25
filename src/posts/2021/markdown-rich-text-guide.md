@@ -37,31 +37,43 @@ draft: true
 
 다양한 타입의 알림 박스를 사용할 수 있습니다:
 
-<div class="alert alert-info">
-<strong>💡 정보</strong>
+{% alert "info" %}
 이것은 정보성 알림입니다. 유용한 팁이나 참고사항을 전달할 때 사용하세요.
-</div>
+{% endalert %}
 
-<div class="alert alert-success">
-<strong>✅ 성공</strong>
+{% alert "success" %}
 작업이 성공적으로 완료되었습니다. 긍정적인 결과를 표시할 때 사용하세요.
-</div>
+{% endalert %}
 
-<div class="alert alert-warning">
-<strong>⚠️ 주의</strong>
+{% alert "warning" %}
 주의가 필요한 내용입니다. 사용자가 조심해야 할 사항을 알릴 때 사용하세요.
-</div>
+{% endalert %}
 
-<div class="alert alert-danger">
-<strong>🚨 경고</strong>
+{% alert "danger" %}
 중요한 경고 메시지입니다. 심각한 문제나 반드시 알아야 할 내용에 사용하세요.
-</div>
+{% endalert %}
 
-### Alert 사용법
+### Alert 사용법 (Shortcode 방식 - 권장)
+
+```liquid
+{% alert "info" %}
+내용을 여기에 작성합니다.
+{% endalert %}
+
+{% alert "success", "커스텀 제목" %}
+커스텀 제목을 사용할 수도 있습니다.
+{% endalert %}
+```
+
+사용 가능한 타입: `info`, `success`, `warning`, `danger`
+
+### Alert 사용법 (HTML 방식 - 하위 호환성)
+
+기존 HTML 방식도 계속 사용 가능합니다:
 
 ```html
 <div class="alert alert-info">
-<strong>제목</strong>
+<strong>💡 정보</strong>
 내용을 여기에 작성합니다.
 </div>
 ```
@@ -142,15 +154,19 @@ npm run build
 ### 링크
 
 **내부 링크** (현재 페이지에서 이동):
+
 ```markdown
 [블로그 홈으로 이동](/)
 ```
+
 [블로그 홈으로 이동](/)
 
 **외부 링크** (자동으로 새 탭에서 열림):
+
 ```markdown
 [외부 링크 - GitHub](https://github.com)
 ```
+
 [외부 링크 - GitHub](https://github.com)
 
 외부 링크는 자동으로 `target="_blank"`가 적용되어 새 탭에서 열립니다.
@@ -168,6 +184,7 @@ npm run build
 ![logo](/assets/logo.svg)
 
 **이미지 경로 규칙:**
+
 - 로컬 이미지: `/assets/이미지명.확장자`
 - 외부 이미지: `https://example.com/image.jpg`
 - 이미지는 `src/assets/` 폴더에 저장

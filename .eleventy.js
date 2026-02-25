@@ -359,6 +359,24 @@ module.exports = function (eleventyConfig) {
 </div>`;
   });
 
+  // Alert Shortcode (정보, 성공, 주의, 경고 박스)
+  eleventyConfig.addPairedShortcode("alert", function (content, type = "info", title = "") {
+    const typeConfig = {
+      info: { icon: "💡", defaultTitle: "정보" },
+      success: { icon: "✅", defaultTitle: "성공" },
+      warning: { icon: "⚠️", defaultTitle: "주의" },
+      danger: { icon: "🚨", defaultTitle: "경고" }
+    };
+
+    const config = typeConfig[type] || typeConfig.info;
+    const displayTitle = title || config.defaultTitle;
+
+    return `<div class="alert alert-${type}">
+<strong>${config.icon} ${displayTitle}</strong>
+${content.trim()}
+</div>`;
+  });
+
   // 설정 객체
   return {
     markdownTemplateEngine: "njk",
