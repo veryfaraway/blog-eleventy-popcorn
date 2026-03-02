@@ -1,0 +1,110 @@
+name: Check Permalink Duplicates
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check-duplicates:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Build site
+        run: npm run build
+        env:
+          ELEVENTY_ENV: production
+      
+      - name: Check for duplicate permalinks
+        id: check
+        run: |
+          if [ -f "_site/permalink-duplicates.json" ]; then
+            echo "duplicates_found=true" >> $GITHUB_OUTPUT
+            echo "DUPLICATES<<EOF" >> $GITHUB_ENV
+            cat _site/permalink-duplicates.json >> $GITHUB_ENV
+            echo "EOF" >> $GITHUB_ENV
+          else
+            echo "duplicates_found=false" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Create or update issue
+        if: steps.check.outputs.duplicates_found == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const duplicates = JSON.parse(process.env.DUPLICATES);
+            
+            // 이슈 본문 생성
+            let body = '## 🚨 Permalink 중복이 감지되었습니다!\n\n';
+            body += '다음 permalink들이 여러 포스트에서 중복 사용되고 있습니다:\n\n';
+            
+            duplicates.forEach(dup => {
+              body += `### \`${dup.permalink}\`\n\n`;
+              body += '중복된 파일:\n';
+              dup.files.forEach(file => {
+                body += `- \`${file}\`\n`;
+              });
+              body += '\n';
+            });
+            
+            body += '---\n\n';
+            body += '**해결 방법:**\n';
+            body += '1. 각 포스트의 front matter에서 `slug` 필드를 확인하세요\n';
+            body += '2. 중복된 slug를 고유한 값으로 변경하세요\n';
+            body += '3. slug가 없는 경우, 파일명에서 숫자 prefix를 제거한 값이 사용됩니다\n\n';
+            body += `_자동 생성됨: ${new Date().toISOString()}_`;
+            
+            // 기존 이슈 찾기
+            const issues = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              labels: 'automated,bug',
+              creator: 'github-actions[bot]'
+            });
+            
+            const existingIssue = issues.data.find(issue => 
+              issue.title.includes('[자동] Permalink 중복 감지')
+            );
+            
+            if (existingIssue) {
+              // 기존 이슈에 댓글 추가
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: existingIssue.number,
+                body: `## 업데이트\n\n${body}`
+              });
+              console.log(`Updated existing issue #${existingIssue.number}`);
+            } else {
+              // 새 이슈 생성
+              const issue = await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: '[자동] Permalink 중복 감지',
+                body: body,
+                labels: ['bug', 'automated']
+              });
+              console.log(`Created new issue #${issue.data.number}`);
+            }
+      
+      - name: Success message
+        if: steps.check.outputs.duplicates_found == 'false'
+        run: echo "✅ No duplicate permalinks found!"

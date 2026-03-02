@@ -13,7 +13,9 @@
 
 - ✅ 다국어 지원 (한국어/영어)
 - ✅ 반응형 디자인
-- ✅ SEO 최적화
+- ✅ SEO 최적화 (Slug 기반 URL)
+- ✅ 자동 리다이렉션 (301 Redirect)
+- ✅ Permalink 중복 감지
 - ✅ 코드 하이라이팅
 - ✅ 카테고리 및 태그 시스템
 - ✅ 페이지네이션
@@ -71,15 +73,29 @@ draft: false
 
 - `layout`: 레이아웃 템플릿 (post.njk 사용)
 - `title`: 포스트 제목 (필수)
+- `slug`: URL에 사용될 slug (권장, 없으면 파일명에서 자동 생성)
+- `lang`: 포스트 언어 (`ko` 또는 `en`, 기본값: `ko`)
 - `description`: 포스트 설명 (SEO 및 카드에 표시)
 - `date`: 발행일 (YYYY-MM-DD 형식)
 - `category`: 카테고리 (Frontend, Backend, Modeling, NoSQL, DevOps, AI/ML)
 - `tags`: 태그 배열
 - `thumbnail`: 썸네일 이미지 URL (선택)
 - `draft`: 초안 여부 (true면 프로덕션에서 제외)
-- `lang`: 포스트 언어 (`ko` 또는 `en`, 기본값: `ko`)
 
 **참고:** `readingTime`은 자동으로 계산되므로 입력하지 않아도 됩니다.
+
+### URL 생성 규칙
+
+포스트 URL은 다음 규칙으로 생성됩니다:
+
+1. **slug 필드가 있는 경우**: `/posts/{year}/{slug}/`
+2. **slug 필드가 없는 경우**: 파일명에서 숫자 prefix 제거 후 사용
+
+예시:
+- 파일: `src/posts/2026/011-ai-movies.md`, slug: `ai-visionary-movies`
+- URL: `/posts/2026/ai-visionary-movies/`
+
+자세한 내용은 [SLUG-GUIDE.md](SLUG-GUIDE.md)를 참고하세요.
 
 ### 디렉토리 구조
 

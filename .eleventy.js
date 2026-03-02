@@ -1,7 +1,12 @@
 const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
 const Image = require("@11ty/eleventy-img");
+const fs = require("fs");
+const path = require("path");
 
 module.exports = function (eleventyConfig) {
+  // Permalink 중복 체크를 위한 Map
+  const permalinkMap = new Map();
+  const duplicates = [];
   // 플러그인 - Prism.js 테마 설정
   eleventyConfig.addPlugin(syntaxHighlight, {
     preAttributes: {
@@ -27,6 +32,33 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addNunjucksAsyncShortcode("image", imageShortcode);
   // Cloudinary 전용 shortcode (반응형 srcset + LQIP)
   eleventyConfig.addShortcode("cloudinary", cloudinaryShortcode);
+
+  // Permalink 생성 필터
+  eleventyConfig.addFilter("generatePermalink", function (page) {
+    // posts가 아닌 경우 기본 동작
+    if (!page.inputPath.includes('/posts/')) {
+      return page.url;
+    }
+
+    const data = this.ctx;
+    
+    // slug가 있으면 사용, 없으면 파일명에서 숫자 prefix 제거
+    let slug = data.slug;
+    if (!slug) {
+      // fileSlug에서 숫자 prefix 제거 (예: 011-title -> title)
+      slug = page.fileSlug.replace(/^\d+-/, '');
+    }
+    
+    // 날짜에서 연도 추출
+    const date = data.date || new Date();
+    const year = date.getFullYear();
+    
+    // lang 파라미터 추가 (다국어 지원)
+    const lang = data.lang || 'ko';
+    const langParam = lang !== 'ko' ? `?lang=${lang}` : '';
+    
+    return `/posts/${year}/${slug}/${langParam}`;
+  });
 
   // 날짜 필터
   eleventyConfig.addFilter("dateFilter", function (date) {
@@ -199,6 +231,70 @@ module.exports = function (eleventyConfig) {
     });
   });
 
+  // Permalink 중복 체크 (빌드 완료 후)
+  eleventyConfig.on('eleventy.after', async () => {
+    // 중복 체크 경고
+    if (duplicates.length > 0) {
+      console.warn('\n⚠️  WARNING: Duplicate permalinks detected!\n');
+      duplicates.forEach(dup => {
+        console.warn(`   - ${dup.permalink}`);
+        dup.files.forEach(file => {
+          console.warn(`     → ${file}`);
+        });
+        console.warn('');
+      });
+      
+      // JSON 파일로 저장
+      const outputPath = path.join('_site', 'permalink-duplicates.json');
+      fs.writeFileSync(outputPath, JSON.stringify(duplicates, null, 2));
+      console.warn(`   Details saved to: ${outputPath}\n`);
+    }
+
+    // 리다이렉션 파일 생성
+    await generateRedirects();
+  });
+
+  // 리다이렉션 생성 함수
+  async function generateRedirects() {
+    const redirects = [];
+    
+    // permalinkMap을 순회하며 리다이렉션 규칙 생성
+    permalinkMap.forEach((inputPath, newUrl) => {
+      // 파일명에서 숫자 prefix가 있는지 확인
+      const fileName = path.basename(inputPath, '.md');
+      const hasNumberPrefix = /^\d+-/.test(fileName);
+      
+      if (hasNumberPrefix) {
+        // 기존 URL 패턴 생성 (파일명 기반)
+        const match = inputPath.match(/posts\/(\d{4})\/([\w-]+)\.md$/);
+        if (match) {
+          const year = match[1];
+          const fileSlug = match[2];
+          const oldUrl = `/posts/${year}/${fileSlug}/`;
+          
+          // 새 URL과 다른 경우에만 리다이렉션 추가
+          if (oldUrl !== newUrl) {
+            redirects.push(`${oldUrl}* ${newUrl}:splat 301`);
+          }
+        }
+      }
+    });
+
+    // _redirects 파일 생성
+    if (redirects.length > 0) {
+      const redirectsPath = path.join('_site', '_redirects');
+      const content = [
+        '# Auto-generated redirects for SEO-friendly URLs',
+        '# Old URLs (with number prefix) -> New URLs (slug-based)',
+        '',
+        ...redirects
+      ].join('\n');
+      
+      fs.writeFileSync(redirectsPath, content);
+      console.log(`✅ Generated ${redirects.length} redirect rules in _site/_redirects`);
+    }
+  }
+
   // 컬렉션
   eleventyConfig.addCollection("blog", function (collection) {
     // 하위 디렉토리 포함 (src/posts/**/*.md)
@@ -208,6 +304,28 @@ module.exports = function (eleventyConfig) {
     if (process.env.ELEVENTY_ENV === 'production') {
       posts = posts.filter(post => !post.data.draft);
     }
+
+    // Permalink 중복 체크
+    posts.forEach(post => {
+      const permalink = post.url;
+      const inputPath = post.inputPath;
+      
+      if (permalinkMap.has(permalink)) {
+        const existing = permalinkMap.get(permalink);
+        const existingDup = duplicates.find(d => d.permalink === permalink);
+        
+        if (existingDup) {
+          existingDup.files.push(inputPath);
+        } else {
+          duplicates.push({
+            permalink: permalink,
+            files: [existing, inputPath]
+          });
+        }
+      } else {
+        permalinkMap.set(permalink, inputPath);
+      }
+    });
 
     return posts.sort(function (a, b) {
       return b.date - a.date;

@@ -2,7 +2,7 @@
 layout: post.njk
 title: "[영화] 로튼 토마토 90%, 진짜 '꿀잼'일까? 지수 제대로 보는 법"
 lang: ko
-slug: inception-secret
+slug: rotten-tomatoes
 date: 2026-01-25
 draft: false
 description: "로튼 토마토 지수는 평점이 아닙니다! 토마토미터와 팝콘 지수의 차이, 그리고 '신선도 보증'의 비밀을 리포트합니다."

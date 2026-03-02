@@ -18,7 +18,8 @@ npm run new
 
 스크립트가 자동으로:
 - 현재 연도 폴더에 파일 생성
-- 제목을 슬러그로 변환
+- 제목을 slug로 변환하여 파일명 생성
+- front matter에 slug 필드 추가
 - 오늘 날짜 자동 입력
 - 기본 템플릿 적용
 
@@ -33,8 +34,28 @@ npm run new
 태그 (쉼표로 구분): docker, container, devops
 
 ✅ 포스트가 생성되었습니다!
-📁 경로: src/posts/2025/docker-완벽-가이드.md
-🔗 슬러그: docker-완벽-가이드
+📁 경로: src/posts/2026/docker-guide.md
+🔗 슬러그: docker-guide
+🌐 URL: /posts/2026/docker-guide/
+```
+
+### 생성되는 파일 구조
+
+```yaml
+---
+layout: post.njk
+title: Docker 완벽 가이드
+lang: ko
+slug: docker-guide
+date: 2026-03-02
+draft: false
+description: Docker의 기초부터 실전까지 모든 것을 다룹니다
+category: DevOps
+tags:
+  - docker
+  - container
+  - devops
+---
 ```
 
 ## 방법 2: 템플릿 복사
@@ -43,10 +64,10 @@ npm run new
 
 ```bash
 # 템플릿 복사
-cp templates/post-template.md src/posts/2025/my-new-post.md
+cp templates/post-template.md src/posts/2026/my-new-post.md
 
 # 에디터로 열기
-code src/posts/2025/my-new-post.md
+code src/posts/2026/my-new-post.md
 ```
 
 그 다음 front matter를 수정하세요:

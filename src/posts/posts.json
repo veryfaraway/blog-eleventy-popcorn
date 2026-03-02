@@ -1,0 +1,6 @@
+{
+  "layout": "post.njk",
+  "eleventyComputed": {
+    "permalink": "{{ page | generatePermalink }}"
+  }
+}

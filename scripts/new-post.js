@@ -40,8 +40,11 @@ async function createPost() {
   const template = `---
 layout: post.njk
 title: ${title}
-description: ${description}
+lang: ko
+slug: ${slug}
 date: ${date}
+draft: false
+description: ${description}
 category: ${category}
 tags:
 ${tagsYaml}
@@ -65,6 +68,7 @@ ${tagsYaml}
 `;
 
   const dirPath = path.join(__dirname, '..', 'src', 'posts', year.toString());
+  // 파일명은 숫자 prefix 없이 slug만 사용
   const filePath = path.join(dirPath, `${slug}.md`);
 
   // 디렉토리가 없으면 생성
@@ -84,6 +88,7 @@ ${tagsYaml}
   console.log(`\n✅ 포스트가 생성되었습니다!`);
   console.log(`📁 경로: ${filePath}`);
   console.log(`🔗 슬러그: ${slug}`);
+  console.log(`🌐 URL: /posts/${year}/${slug}/`);
   
   rl.close();
 }
