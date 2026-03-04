@@ -291,7 +291,53 @@ Shortcode 대신 직접 커스터마이징이 필요한 경우 아래와 같이 
   {% button "목록으로", "/blog", "outline" %}
 </div>
 
-## 12. 실전 예제
+## 12. 영화 카드 (OMDb API 연동)
+
+영화 정보를 로튼 토마토 점수와 함께 표시할 수 있습니다.
+
+### 영화 카드 사용법
+
+```liquid
+{{ "{% movie \"타이타닉\", \"tt0120338\" %}" }}
+```
+
+파라미터:
+1. **영화 제목** (필수): 영화 이름 (API 실패 시 표시용)
+2. **IMDb ID** (필수): IMDb ID (예: "tt0120338")
+3. **포스터 URL** (선택): 커스텀 포스터 이미지 URL
+
+### IMDb ID 찾는 방법
+
+1. [IMDb 웹사이트](https://www.imdb.com)에서 영화 검색
+2. 영화 페이지 URL 확인
+   - 예: `https://www.imdb.com/title/tt0120338/`
+   - ID는 `tt0120338` 부분
+
+### 실제 적용 예시
+
+{% movie "타이타닉", "tt0120338" %}
+
+{% movie "인셉션", "tt1375666" %}
+
+<div class="alert alert-info">
+<strong>💡 API 키 설정</strong>
+영화 평점을 표시하려면 OMDb API 키가 필요합니다. 아래 단계를 따라 설정하세요:
+
+1. [OMDb API](https://www.omdbapi.com/apikey.aspx)에서 무료 API 키 신청
+2. 이메일로 받은 API 키를 활성화
+3. 로컬: `.env` 파일에 `OMDB_API_KEY=your-key` 추가
+4. Netlify: 환경 변수에 `OMDB_API_KEY` 추가
+
+무료 플랜: 하루 1,000회 요청 (정적 사이트는 빌드 시에만 호출하므로 충분)
+</div>
+
+### 캐싱 시스템
+
+- API 응답은 7일간 캐시됨 (`.cache/` 폴더)
+- 빌드 시에만 API 호출 (방문자는 API 사용 안 함)
+- 캐시 덕분에 재빌드 시 API 호출 최소화
+
+## 13. 실전 예제
 
 <div class="alert alert-info">
 <strong>💡 팁</strong>

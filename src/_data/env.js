@@ -16,7 +16,10 @@ module.exports = {
   disqus: {
     enabled: process.env.DISQUS_ENABLED === "true",
     shortname: process.env.DISQUS_SHORTNAME || ""
-  }
+  },
+
+  // OMDb API
+  omdbApiKey: process.env.OMDB_API_KEY || ""
 };
 
 // 빌드 시 환경 변수 확인 (디버깅용)
@@ -27,4 +30,5 @@ if (process.env.NODE_ENV === 'production' || process.env.ELEVENTY_ENV === 'produ
   console.log('- ADSENSE_CLIENT_ID:', process.env.ADSENSE_CLIENT_ID ? '✅ Set (ca-pub-...)' : '❌ Not set');
   console.log('- ADSENSE_SLOT_IN_ARTICLE:', process.env.ADSENSE_SLOT_IN_ARTICLE ? '✅ Set' : '❌ Not set');
   console.log('- ADSENSE_SLOT_DISPLAY:', process.env.ADSENSE_SLOT_DISPLAY ? '✅ Set' : '❌ Not set');
+  console.log('- OMDB_API_KEY:', process.env.OMDB_API_KEY ? '✅ Set' : '❌ Not set');
 }

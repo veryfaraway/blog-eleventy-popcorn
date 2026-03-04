@@ -187,21 +187,123 @@ module.exports = function (eleventyConfig) {
 
   // 인물 미니 링크 shortcode (텍스트 크기 수준의 작은 아바타 링크)
   eleventyConfig.addShortcode("personInline", function (name, image = "", link = "", imdb = "") {
-    const imageUrl = image || `https://via.placeholder.com/32x32?text=${encodeURIComponent(name)}`;
+    const imageUrl = image || `https://via.placeholder.com/48x48?text=${encodeURIComponent(name)}`;
     const profileLink = link || (imdb ? `https://www.imdb.com/name/${imdb}/` : "#");
     const hasLink = link || imdb;
 
-    const content = `<span class="inline-flex items-center gap-1 text-sm font-medium text-primary-700 hover:text-primary-800 underline-offset-4">
+    const content = `<span class="inline-flex items-center gap-2 text-base font-medium text-primary-700 hover:text-primary-800 underline-offset-4 align-middle">
   <img src="${imageUrl}"
        alt="${name}"
-       class="w-5 h-5 rounded-full object-cover border border-gray-200 inline-block align-middle"
-       onerror="this.src='https://via.placeholder.com/32x32?text=${encodeURIComponent(name)}'">
-  <span class="align-middle">${name}</span>
+       class="w-8 h-8 rounded-full object-cover border border-gray-200"
+       onerror="this.src='https://via.placeholder.com/48x48?text=${encodeURIComponent(name)}'">
+  <span>${name}</span>
 </span>`;
 
     return hasLink
-      ? `<a href="${profileLink}" target="_blank" rel="noopener noreferrer" class="no-underline">${content}</a>`
+      ? `<a href="${profileLink}" target="_blank" rel="noopener noreferrer" class="no-underline inline-block align-middle">${content}</a>`
       : content;
+  });
+
+  // 영화 카드 shortcode (OMDb API 연동)
+  eleventyConfig.addShortcode("movie", async function (title, imdbId, posterUrl = "") {
+    const env = require("./src/_data/env.js");
+    const apiKey = env.omdbApiKey;
+    
+    // 캐시 디렉토리 생성
+    const cacheDir = path.join(__dirname, ".cache");
+    if (!fs.existsSync(cacheDir)) {
+      fs.mkdirSync(cacheDir, { recursive: true });
+    }
+    
+    const cacheFile = path.join(cacheDir, `movie-${imdbId}.json`);
+    let movieData = null;
+
+    // 캐시 확인
+    if (fs.existsSync(cacheFile)) {
+      try {
+        const cached = JSON.parse(fs.readFileSync(cacheFile, "utf-8"));
+        // 캐시가 7일 이내면 사용
+        if (Date.now() - cached.timestamp < 7 * 24 * 60 * 60 * 1000) {
+          movieData = cached.data;
+        }
+      } catch (e) {
+        console.warn(`⚠️  캐시 읽기 실패: ${imdbId}`);
+      }
+    }
+
+    // API 호출 (캐시가 없거나 만료된 경우)
+    if (!movieData && apiKey) {
+      try {
+        const fetch = (await import("node-fetch")).default;
+        const response = await fetch(`https://www.omdbapi.com/?i=${imdbId}&apikey=${apiKey}`);
+        movieData = await response.json();
+        
+        if (movieData.Response === "True") {
+          // 캐시 저장
+          fs.writeFileSync(cacheFile, JSON.stringify({
+            timestamp: Date.now(),
+            data: movieData
+          }));
+          console.log(`✅ 영화 정보 가져옴: ${movieData.Title}`);
+        } else {
+          console.warn(`⚠️  OMDb API 오류: ${movieData.Error}`);
+          movieData = null;
+        }
+      } catch (error) {
+        console.error(`❌ OMDb API 호출 실패: ${error.message}`);
+        movieData = null;
+      }
+    }
+
+    // 데이터 추출
+    const movieTitle = movieData?.Title || title;
+    const year = movieData?.Year || "";
+    const poster = posterUrl || movieData?.Poster || `https://via.placeholder.com/300x450?text=${encodeURIComponent(movieTitle)}`;
+    const imdbRating = movieData?.imdbRating || "";
+    const imdbLink = `https://www.imdb.com/title/${imdbId}/`;
+    
+    // 로튼 토마토 점수 추출
+    let rottenTomatoesScore = "";
+    if (movieData?.Ratings) {
+      const rtRating = movieData.Ratings.find(r => r.Source === "Rotten Tomatoes");
+      if (rtRating) {
+        rottenTomatoesScore = rtRating.Value;
+      }
+    }
+
+    // HTML 생성
+    return `<div class="movie-card not-prose my-6 p-4 border border-gray-200 rounded-lg hover:shadow-lg transition-shadow bg-white">
+  <div class="flex gap-4">
+    <a href="${imdbLink}" target="_blank" rel="noopener noreferrer" class="flex-shrink-0">
+      <img src="${poster}" 
+           alt="${movieTitle} 포스터" 
+           class="w-24 h-36 object-cover rounded shadow-sm hover:shadow-md transition-shadow"
+           onerror="this.src='https://via.placeholder.com/300x450?text=${encodeURIComponent(movieTitle)}'">
+    </a>
+    <div class="flex-1 min-w-0">
+      <h3 class="text-lg font-bold text-gray-900 mb-1">
+        <a href="${imdbLink}" target="_blank" rel="noopener noreferrer" class="hover:text-primary-600 transition-colors">
+          ${movieTitle}${year ? ` (${year})` : ""}
+        </a>
+      </h3>
+      <div class="flex flex-wrap gap-3 mt-3">
+        ${imdbRating ? `
+        <div class="flex items-center gap-1.5">
+          <span class="text-yellow-500 font-bold text-sm">⭐</span>
+          <span class="text-sm font-semibold text-gray-700">${imdbRating}</span>
+          <span class="text-xs text-gray-500">IMDb</span>
+        </div>` : ""}
+        ${rottenTomatoesScore ? `
+        <div class="flex items-center gap-1.5">
+          <span class="text-red-500 font-bold text-sm">🍅</span>
+          <span class="text-sm font-semibold text-gray-700">${rottenTomatoesScore}</span>
+          <span class="text-xs text-gray-500">RT</span>
+        </div>` : ""}
+      </div>
+      ${!apiKey ? `<p class="text-xs text-gray-400 mt-2">💡 OMDb API 키를 설정하면 평점이 표시됩니다</p>` : ""}
+    </div>
+  </div>
+</div>`;
   });
 
   // 다국어 번역 필터

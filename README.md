@@ -276,6 +276,7 @@ lang: en  # 또는 "ko" (기본값)
 - [DEPLOYMENT.md](./DEPLOYMENT.md) - 배포 및 환경 변수 가이드
 - [MONETIZATION.md](./MONETIZATION.md) - 수익화 가이드 (Analytics, AdSense)
 - [SEO.md](./SEO.md) - SEO 최적화 및 검색 엔진 등록 가이드
+- [OMDB-API-SETUP.md](./OMDB-API-SETUP.md) - 영화 정보 API 설정 가이드
 - [CHANGELOG.md](./CHANGELOG.md) - 변경 사항
 
 ## 라이선스
