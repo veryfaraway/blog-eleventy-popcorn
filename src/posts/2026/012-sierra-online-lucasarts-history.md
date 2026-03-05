@@ -67,7 +67,7 @@ thumbnail: https://images.unsplash.com/photo-1579373903781-fd5c0c30c4cd?q=80&w=2
 ### 탄생 (1982)
 
 루카스아츠의 출발은 조금 다르다.  
-1982년, **조지 루카스(George Lucas)** 는 *스타워즈*와 *인디아나 존스*의 막대한 수익을 다각화하기 위해 **Lucasfilm Games**라는 게임 부서를 설립했다. 내부 지침은 단순했다. *"작게 유지하고, 최고가 되고, 손해는 보지 마라."*  
+1982년, {% personInline "조지 루카스(George Lucas)", "https://m.media-amazon.com/images/M/MV5BMTA0Mjc0NzExNzBeQTJeQWpwZ15BbWU3MDEzMzQ3MDI@._V1_FMjpg_UX1000_.jpg", "", "nm0000184" %}는 *스타워즈*와 *인디아나 존스*의 막대한 수익을 다각화하기 위해 **Lucasfilm Games**라는 게임 부서를 설립했다. 내부 지침은 단순했다. *"작게 유지하고, 최고가 되고, 손해는 보지 마라."*  
 
 초기에는 Atari와의 협업으로 아케이드 게임들을 제작했지만, 본격적인 이름을 남기기 시작한 건 어드벤처 게임 엔진 **SCUMM(Script Creation Utility for Maniac Mansion)** 을 자체 개발한 이후였다.  
 1990년, 부서 이름은 **LucasArts**로 변경되었다.
