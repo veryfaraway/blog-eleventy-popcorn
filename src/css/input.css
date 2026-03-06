@@ -182,7 +182,7 @@ pre[class*="language-"] code {
   color: #991b1b !important;
 }
 
-.prose .alert strong {
+.prose .alert .alert-title {
   display: block !important;
   margin-bottom: 0.25rem !important;
   font-weight: 600 !important;

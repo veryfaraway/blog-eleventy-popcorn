@@ -41,22 +41,22 @@ module.exports = function (eleventyConfig) {
     }
 
     const data = this.ctx;
-    
+
     // slug가 있으면 사용, 없으면 파일명에서 숫자 prefix 제거
     let slug = data.slug;
     if (!slug) {
       // fileSlug에서 숫자 prefix 제거 (예: 011-title -> title)
       slug = page.fileSlug.replace(/^\d+-/, '');
     }
-    
+
     // 날짜에서 연도 추출
     const date = data.date || new Date();
     const year = date.getFullYear();
-    
+
     // lang 파라미터 추가 (다국어 지원)
     const lang = data.lang || 'ko';
     const langParam = lang !== 'ko' ? `?lang=${lang}` : '';
-    
+
     return `/posts/${year}/${slug}/${langParam}`;
   });
 
@@ -208,13 +208,13 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addShortcode("movie", async function (title, imdbId, posterUrl = "") {
     const env = require("./src/_data/env.js");
     const apiKey = env.omdbApiKey;
-    
+
     // 캐시 디렉토리 생성
     const cacheDir = path.join(__dirname, ".cache");
     if (!fs.existsSync(cacheDir)) {
       fs.mkdirSync(cacheDir, { recursive: true });
     }
-    
+
     const cacheFile = path.join(cacheDir, `movie-${imdbId}.json`);
     let movieData = null;
 
@@ -237,7 +237,7 @@ module.exports = function (eleventyConfig) {
         const fetch = (await import("node-fetch")).default;
         const response = await fetch(`https://www.omdbapi.com/?i=${imdbId}&apikey=${apiKey}`);
         movieData = await response.json();
-        
+
         if (movieData.Response === "True") {
           // 캐시 저장
           fs.writeFileSync(cacheFile, JSON.stringify({
@@ -261,7 +261,7 @@ module.exports = function (eleventyConfig) {
     const poster = posterUrl || movieData?.Poster || `https://via.placeholder.com/300x450?text=${encodeURIComponent(movieTitle)}`;
     const imdbRating = movieData?.imdbRating || "";
     const imdbLink = `https://www.imdb.com/title/${imdbId}/`;
-    
+
     // 로튼 토마토 점수 추출
     let rottenTomatoesScore = "";
     if (movieData?.Ratings) {
@@ -345,7 +345,7 @@ module.exports = function (eleventyConfig) {
         });
         console.warn('');
       });
-      
+
       // JSON 파일로 저장
       const outputPath = path.join('_site', 'permalink-duplicates.json');
       fs.writeFileSync(outputPath, JSON.stringify(duplicates, null, 2));
@@ -359,13 +359,13 @@ module.exports = function (eleventyConfig) {
   // 리다이렉션 생성 함수
   async function generateRedirects() {
     const redirects = [];
-    
+
     // permalinkMap을 순회하며 리다이렉션 규칙 생성
     permalinkMap.forEach((inputPath, newUrl) => {
       // 파일명에서 숫자 prefix가 있는지 확인
       const fileName = path.basename(inputPath, '.md');
       const hasNumberPrefix = /^\d+-/.test(fileName);
-      
+
       if (hasNumberPrefix) {
         // 기존 URL 패턴 생성 (파일명 기반)
         const match = inputPath.match(/posts\/(\d{4})\/([\w-]+)\.md$/);
@@ -373,7 +373,7 @@ module.exports = function (eleventyConfig) {
           const year = match[1];
           const fileSlug = match[2];
           const oldUrl = `/posts/${year}/${fileSlug}/`;
-          
+
           // 새 URL과 다른 경우에만 리다이렉션 추가
           if (oldUrl !== newUrl) {
             redirects.push(`${oldUrl}* ${newUrl}:splat 301`);
@@ -391,7 +391,7 @@ module.exports = function (eleventyConfig) {
         '',
         ...redirects
       ].join('\n');
-      
+
       fs.writeFileSync(redirectsPath, content);
       console.log(`✅ Generated ${redirects.length} redirect rules in _site/_redirects`);
     }
@@ -411,11 +411,11 @@ module.exports = function (eleventyConfig) {
     posts.forEach(post => {
       const permalink = post.url;
       const inputPath = post.inputPath;
-      
+
       if (permalinkMap.has(permalink)) {
         const existing = permalinkMap.get(permalink);
         const existingDup = duplicates.find(d => d.permalink === permalink);
-        
+
         if (existingDup) {
           existingDup.files.push(inputPath);
         } else {
@@ -591,9 +591,17 @@ module.exports = function (eleventyConfig) {
     const config = typeConfig[type] || typeConfig.info;
     const displayTitle = title || config.defaultTitle;
 
+    // markdown-it 인스턴스를 가져와서 content를 렌더링
+    const markdownIt = require("markdown-it")({ html: true, breaks: true });
+    const renderedContent = markdownIt.render(content.trim())
+      // 연속된 </p><p>를 공백으로 변환 (같은 줄에 표시)
+      .replace(/<\/p>\s*<p>/g, ' ')
+      // 남은 <p>, </p> 태그 제거
+      .replace(/<\/?p>/g, '');
+
     return `<div class="alert alert-${type}">
-<strong>${config.icon} ${displayTitle}</strong>
-${content.trim()}
+<strong class="alert-title">${config.icon} ${displayTitle}</strong>
+${renderedContent}
 </div>`;
   });
 
