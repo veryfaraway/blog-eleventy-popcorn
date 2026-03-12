@@ -49,7 +49,7 @@ thumbnail: https://disney.images.edge.bamgrid.com/ripcut-delivery/v2/variant/dis
 ## 미리 알아두면 좋은 것 ② — 주인공과 주요 출연진
 
 | 배우 | 역할 | 특징 |
-|------|------|------|
+| ------ | ------ | ------ |
 | **스털링 K. 브라운** (Sterling K. Brown) | 자비에 콜린스 (시크릿 서비스 요원) | 《디스 이즈 어스》로 에미상 수상한 베테랑 |
 | **제임스 마스든** (James Marsden) | 케일럽 브래드포드 (대통령) | 극 중 가장 인상적인 연기라는 평가를 받는 배우 |
 | **줄리안 니콜슨** (Julianne Nicholson) | 사만다 레드몬드 (파라다이스의 실권자) | 에미상 연기상 후보에 오른 이 작품의 숨겨진 MVP |
