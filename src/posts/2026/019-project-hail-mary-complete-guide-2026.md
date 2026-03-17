@@ -195,9 +195,9 @@ CGV 일부 지점(영등포, 왕십리, 용산아이파크몰, 판교 등)은 **
 
 ## 🚀 마치며
 
-{% movie "<마션(The Martian)>", "tt3659388", "https://m.media-amazon.com/images/M/MV5BMTc2MTQ3MDA1Nl5BMl5BanBnXkFtZTgwODA3OTI4NjE@._V1_FMjpg_UX1000_.jpg" %}
+![마션](https://cdn.mos.cms.futurecdn.net/ZDmuaz6sCAsk7f39ryiFbb.jpg)
 
 〈마션〉이 "어떻게든 살아남겠다"는 혼자만의 싸움이었다면, 〈프로젝트 헤일메리〉는 "어떻게든 함께 해결하겠다"는 협력과 우정의 이야기입니다.
 우주를 배경으로 하지만 결국은 가장 인간적인 감정을 다루는 이 영화, 올해 상반기 극장에서 꼭 경험해보시길 추천드립니다. 특히 **IMAX 대형 스크린**에서의 우주 압도감은 집에서 절대 대체할 수 없는 경험이 될 것입니다. 🌌
 
-![마션](https://cdn.mos.cms.futurecdn.net/ZDmuaz6sCAsk7f39ryiFbb.jpg)
+{% movie "<마션(The Martian)>", "tt3659388", "https://m.media-amazon.com/images/M/MV5BMTc2MTQ3MDA1Nl5BMl5BanBnXkFtZTgwODA3OTI4NjE@._V1_FMjpg_UX1000_.jpg" %}
