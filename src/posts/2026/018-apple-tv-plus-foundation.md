@@ -8,6 +8,7 @@ draft: false
 description: "아이작 아시모프의 SF 걸작 《파운데이션》 소설 시리즈와 Apple TV+ 드라마를 심층 비교한다. 무엇을 충실히 계승했고, 무엇을 과감히 바꿨는가? 그리고 그 선택은 옳았는가?"
 category: "아는 척하기 딱 좋은"
 tags:
+  - SF
   - 아이작 아시모프
   - 파운데이션
   - Foundation

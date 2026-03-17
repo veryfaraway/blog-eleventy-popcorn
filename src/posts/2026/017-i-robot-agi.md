@@ -11,8 +11,8 @@ tags:
   - 아이작 아시모프
   - 아이로봇
   - I, Robot
-  - AGI
-  - 인공지능 윤리
+  - AI
+  - SF
 thumbnail: https://res.cloudinary.com/doal3ofyr/image/upload/v1773316859/media/movie/I%2C%20Robot/isaac-asimov-i-robot_cgcxwb.jpg
 ---
 

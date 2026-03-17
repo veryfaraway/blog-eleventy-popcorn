@@ -23,6 +23,7 @@ date: 2026-02-24
 ### 2. 파일명 기반 URL (Fallback)
 
 `slug` 필드가 없으면 파일명에서 자동으로 생성됩니다:
+
 - 파일명: `011-ai-visionary-movies.md`
 - 숫자 prefix 자동 제거: `ai-visionary-movies`
 - 생성되는 URL: `/posts/2026/ai-visionary-movies/`
@@ -116,25 +117,29 @@ npm run new
 ### URL 구조 권장사항
 
 #### ✅ 좋은 URL
-```
+
+```text
 /posts/2026/react-hooks-guide/
 /posts/2026/mongodb-basics/
 ```
 
 **특징:**
+
 - 짧고 명확
 - 키워드 포함
 - 읽기 쉬움
 - 숫자 prefix 없음
 
 #### ❌ 피해야 할 URL
-```
+
+```text
 /posts/2026/001-post/                    # 숫자 prefix
 /posts/2026/post-1/                      # 의미 없음
 /posts/2026/react-hooks-guide-complete-tutorial-for-beginners/  # 너무 김
 ```
 
 ### URL 길이
+
 - 권장: 3-5 단어
 - 최대: 60자 이내
 - 키워드 2-3개 포함

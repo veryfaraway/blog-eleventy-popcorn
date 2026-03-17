@@ -5,6 +5,7 @@
 ### Google Search Console
 
 #### 1단계: 사이트 등록
+
 1. [Google Search Console](https://search.google.com/search-console) 접속
 2. "속성 추가" 클릭
 3. URL 접두어 방식 선택: `https://yourdomain.com`
@@ -13,23 +14,29 @@
 #### 2단계: 소유권 확인 방법
 
 **방법 1: HTML 파일 업로드 (권장)**
+
 1. Google이 제공하는 HTML 파일 다운로드
 2. `src/` 폴더에 파일 복사
 3. `.eleventy.js`에 추가:
+
 ```javascript
 eleventyConfig.addPassthroughCopy("src/google*.html");
 ```
+
 4. 빌드 및 배포
 5. Google에서 "확인" 클릭
 
 **방법 2: HTML 태그**
+
 1. Google이 제공하는 메타 태그 복사
 2. `src/_layouts/base.njk`의 `<head>`에 추가:
+
 ```html
 <meta name="google-site-verification" content="XXXXXXXXXX" />
 ```
 
 #### 3단계: Sitemap 제출
+
 1. Search Console에서 "Sitemaps" 메뉴
 2. `https://yourdomain.com/sitemap.xml` 입력
 3. "제출" 클릭
@@ -40,17 +47,21 @@ eleventyConfig.addPassthroughCopy("src/google*.html");
 ### Naver Search Advisor
 
 #### 1단계: 사이트 등록
+
 1. [네이버 서치어드바이저](https://searchadvisor.naver.com/) 접속
 2. "웹마스터 도구" > "사이트 등록"
 3. 사이트 URL 입력
 
 #### 2단계: 소유권 확인
+
 HTML 태그 방식:
+
 ```html
 <meta name="naver-site-verification" content="XXXXXXXXXX" />
 ```
 
 #### 3단계: Sitemap 제출
+
 1. "요청" > "사이트맵 제출"
 2. `https://yourdomain.com/sitemap.xml` 입력
 
@@ -59,6 +70,7 @@ HTML 태그 방식:
 ### Bing Webmaster Tools
 
 #### 1단계: 사이트 등록
+
 1. [Bing Webmaster Tools](https://www.bing.com/webmasters) 접속
 2. "사이트 추가" 클릭
 3. Google Search Console에서 가져오기 (권장)

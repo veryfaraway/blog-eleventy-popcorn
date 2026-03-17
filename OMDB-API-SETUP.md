@@ -46,7 +46,7 @@ npm run build
 
 빌드 로그에서 다음과 같은 메시지를 확인:
 
-```
+```text
 ✅ 영화 정보 가져옴: Titanic
 ✅ 영화 정보 가져옴: Inception
 ```

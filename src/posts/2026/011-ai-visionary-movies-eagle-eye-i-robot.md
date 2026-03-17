@@ -12,7 +12,7 @@ tags:
   - "이글아이"
   - "아이로봇"
   - "인공지능"
-  - "AI할루시네이션"
+  - AI
   - "로봇3원칙"
 thumbnail: https://images.unsplash.com/photo-1677442135703-1787eea5ce01?q=80&w=2832&auto=format&fit=crop
 ---

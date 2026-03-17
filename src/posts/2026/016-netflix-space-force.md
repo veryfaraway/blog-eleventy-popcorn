@@ -10,10 +10,9 @@ category: "스포일러 지뢰찾기"
 tags:
   - netflix
   - 넷플릭스
-  - space-force
-  - steve-carell
-  - comedy
-  - sci-fi
+  - "스페이스 포스"
+  - "스티브 카렐"
+  - SF
 thumbnail: https://cdn.mos.cms.futurecdn.net/v2/t:0,l:3,cw:1493,ch:840,q:80,w:1493/78p9cUoNYA5U8FqGztGZHM.jpg
 ---
 
