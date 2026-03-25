@@ -62,7 +62,7 @@ npm run build
 5. 다음 정보 입력:
    - **Key**: `OMDB_API_KEY`
    - **Values**: 실제 API 키 입력
-   - **Scopes**: 
+   - **Scopes**:
      - ✅ Same value for all deploy contexts (권장)
      - 또는 Production, Deploy Previews, Branch deploys 개별 설정
 6. **Create variable** 클릭
@@ -137,6 +137,7 @@ npm run build
 ```
 
 빌드 로그에서 다음 메시지 확인:
+
 - `✅ Set`: API 키가 설정됨
 - `❌ Not set`: API 키가 없음
 
@@ -144,12 +145,13 @@ npm run build
 
 빌드 로그에서 오류 메시지 확인:
 
-```
+```text
 ⚠️  OMDb API 오류: Invalid API key!
 ❌ OMDb API 호출 실패: fetch failed
 ```
 
 해결 방법:
+
 1. API 키가 올바른지 확인
 2. 이메일에서 API 키 활성화 링크 클릭했는지 확인
 3. 하루 1,000회 제한을 초과하지 않았는지 확인
@@ -181,4 +183,3 @@ API 키가 없어도 기본 정보는 표시됩니다:
 - [OMDb API 문서](https://www.omdbapi.com/#parameters)
 - [IMDb](https://www.imdb.com/)
 - [Rotten Tomatoes](https://www.rottentomatoes.com/)
-
