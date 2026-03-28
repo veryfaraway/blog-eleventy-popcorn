@@ -517,6 +517,44 @@ module.exports = function (eleventyConfig) {
     { name: "나만 당할 수 없지", slug: "pro-tip" }
   ]);
 
+  // 빌드타임 Mermaid 변환: HTML 출력에서 `language-mermaid` 코드블록을 찾아 SVG로 변환하여 인라인합니다.
+  const { execSync } = require('child_process');
+  const crypto = require('crypto');
+  eleventyConfig.addTransform('mermaid', function(content, outputPath) {
+    if (!outputPath || !outputPath.endsWith('.html')) return content;
+    if (!content.includes('language-mermaid')) return content;
+
+    return content.replace(/<pre[^>]*><code class="language-mermaid">([\s\S]*?)<\/code><\/pre>/g, (m, code) => {
+      const decoded = code.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
+      const hash = crypto.createHash('md5').update(decoded).digest('hex');
+      const cacheDir = path.join(__dirname, '.cache', 'mermaid');
+      if (!fs.existsSync(cacheDir)) fs.mkdirSync(cacheDir, { recursive: true });
+      const mmdFile = path.join(cacheDir, `${hash}.mmd`);
+      const svgFile = path.join(cacheDir, `${hash}.svg`);
+
+      if (!fs.existsSync(svgFile)) {
+        fs.writeFileSync(mmdFile, decoded);
+        try {
+          const mmdcBin = path.join(__dirname, 'node_modules', '.bin', 'mmdc');
+          // Use local mmdc if available, otherwise fallback to npx
+          const cmd = fs.existsSync(mmdcBin) ? `${mmdcBin} -i ${mmdFile} -o ${svgFile}` : `npx --yes mmdc -i ${mmdFile} -o ${svgFile}`;
+          execSync(cmd, { stdio: 'ignore' });
+        } catch (e) {
+          console.warn('⚠️  mermaid-cli failed to render diagram:', e.message);
+          return `<pre><code class="language-mermaid">${code}</code></pre>`;
+        }
+      }
+
+      try {
+        const svg = fs.readFileSync(svgFile, 'utf8');
+        return svg;
+      } catch (e) {
+        console.warn('⚠️  Failed to read generated SVG for mermaid diagram:', e.message);
+        return `<pre><code class="language-mermaid">${code}</code></pre>`;
+      }
+    });
+  });
+
   // 읽기 시간 자동 계산
   eleventyConfig.addFilter("readingTime", function (content) {
     if (!content) return 0;
