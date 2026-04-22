@@ -525,15 +525,37 @@ module.exports = function (eleventyConfig) {
     if (!content.includes('language-mermaid')) return content;
 
     return content.replace(/<pre[^>]*><code class="language-mermaid">([\s\S]*?)<\/code><\/pre>/g, (m, code) => {
+      // `code` may contain HTML produced by syntax highlighters (e.g. <span>..</span>).
+      // Remove any HTML tags and unescape common entities so Mermaid gets plain text.
       const decoded = code.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
-      const hash = crypto.createHash('md5').update(decoded).digest('hex');
+      // Replace tags with a single space to avoid token concatenation, then
+      // normalize spaces while preserving newlines.
+      let cleaned = decoded.replace(/<[^>]+>/g, ' ');
+      cleaned = cleaned.replace(/\r\n/g, '\n').replace(/[ \t]+/g, ' ').replace(/ *\n */g, '\n').trim();
+      // Convert literal "\n" sequences (from author-written escapes) into <br>
+      // which Mermaid accepts inside node labels.
+      cleaned = cleaned.replace(/\\n/g, '<br>');
+      // Mermaid CLI(mermaid-cli/mmdc)는 `A [label]`처럼 노드 ID와 `[` 사이에 공백이 있으면
+      // 파싱 에러를 내는 경우가 있습니다. 브라우저 렌더러는 관대하지만 빌드타임 변환은 엄격하므로,
+      // `A [..]`, `A (..)`, `A {..}` 형태를 `A[..]` 등으로 정규화합니다.
+      cleaned = cleaned
+        .replace(/\b([A-Za-z0-9_]+)\s+\[/g, '$1[')
+        .replace(/\b([A-Za-z0-9_]+)\s+\(/g, '$1(')
+        .replace(/\b([A-Za-z0-9_]+)\s+\{/g, '$1{');
+      // mermaid-cli(구버전 mermaid 파서)는 일부 유니코드 화살표(→ 등)를 토큰으로 처리하지 못해
+      // lexical error를 내는 경우가 있습니다. 라벨 텍스트에서 안전한 ASCII로 치환합니다.
+      cleaned = cleaned
+        .replace(/→/g, '->')
+        .replace(/←/g, '<-')
+        .replace(/↔/g, '<->');
+      const hash = crypto.createHash('md5').update(cleaned).digest('hex');
       const cacheDir = path.join(__dirname, '.cache', 'mermaid');
       if (!fs.existsSync(cacheDir)) fs.mkdirSync(cacheDir, { recursive: true });
       const mmdFile = path.join(cacheDir, `${hash}.mmd`);
       const svgFile = path.join(cacheDir, `${hash}.svg`);
 
       if (!fs.existsSync(svgFile)) {
-        fs.writeFileSync(mmdFile, decoded);
+        fs.writeFileSync(mmdFile, cleaned);
         try {
           const mmdcBin = path.join(__dirname, 'node_modules', '.bin', 'mmdc');
           // Use local mmdc if available, otherwise fallback to npx
