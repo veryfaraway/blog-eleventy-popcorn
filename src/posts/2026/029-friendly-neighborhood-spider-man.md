@@ -3,7 +3,7 @@ layout: post.njk
 title: "'Friendly Neighborhood Spider-Man' — 이 말이 왜 그렇게 특별한가"
 lang: ko
 slug: friendly-neighborhood-spider-man
-date: 2026-04-22
+date: 2026-04-23
 draft: false
 description: "브랜드 뉴 데이 예고편에서 톰 홀랜드가 기겁한 그 한마디. 1962년 탄생부터 MCU까지, Friendly Neighborhood라는 문구가 왜 스파이더맨의 정체성 그 자체인지 파고든다."
 category: "아는 척하기 딱 좋은"
