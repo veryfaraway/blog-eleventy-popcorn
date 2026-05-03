@@ -42,6 +42,8 @@ thumbnail: https://res.cloudinary.com/doal3ofyr/image/upload/v1777813897/media/m
 
 1975년 3월 24일, 오하이오주 리치필드. 무명 헤비급 복서 **척 웨프너(Chuck Wepner)** 가 당대 최강 **무하마드 알리**와 링 위에 섰다.
 
+{% cloudinary "https://res.cloudinary.com/doal3ofyr/image/upload/v1777829940/media/movie/Rocky/MUHAMMAD_ALI_vs_Chuck_WEPNER_1975_Photo_tcndcx.jpg", "척 웨프너 vs 무하마드 알리" %}
+
 누가 봐도 결과가 뻔한 경기였다. 웨프너는 기술도, 풋워크도, 명성도 없었다. 별명은 '베이욘의 출혈자(The Bayonne Bleeder)'. 어딜 가나 지고 피 흘리는 사람이라는 뜻이었다.
 
 그런데 9라운드에 기적이 일어났다. 웨프너의 오른쪽 보디훅이 알리를 맞혔고, 알리가 링 위에 쓰러졌다. 현역 통산 다운을 손에 꼽을 정도였던 알리가. 웨프너는 결국 15라운드 종료 19초를 남기고 TKO로 패했다. 코뼈가 부러졌고 두 눈에서 피가 흘렀다. 하지만 그는 끝까지 버텼다.
