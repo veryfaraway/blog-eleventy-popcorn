@@ -1,7 +1,7 @@
 {
-  "name": "blog-eleventy-tech-ai",
+  "name": "blog-eleventy-popcorn",
   "version": "1.0.0",
-  "description": "개인 블로그 - 기술 및 AI에 대한 이야기",
+  "description": "개인 블로그 - 영화/게임/여행",
   "main": "index.js",
   "scripts": {
     "dev": "npm run watch:css & eleventy --serve",
@@ -9,6 +9,7 @@
     "watch": "eleventy --watch",
     "watch:css": "tailwindcss -i ./src/css/input.css -o ./src/css/style.css --watch",
     "build:css": "tailwindcss -i ./src/css/input.css -o ./src/css/style.css --minify",
+    "postinstall": "node node_modules/@veryfaraway/eleventy-theme/scripts/sync-templates.js",
     "new": "node scripts/new-post.js"
   },
   "keywords": [
@@ -24,15 +25,16 @@
     "@11ty/eleventy": "3.1.2",
     "@11ty/eleventy-img": "^6.0.4",
     "@11ty/eleventy-plugin-syntaxhighlight": "^5.0.0",
+    "@mermaid-js/mermaid-cli": "^11.14.0",
     "@tailwindcss/typography": "^0.5.10",
-    "tailwindcss": "^3.4.0",
-    "@mermaid-js/mermaid-cli": "^9.0.0"
+    "@veryfaraway/eleventy-theme": "file:../blog-eleventy-theme",
+    "tailwindcss": "^3.4.0"
   },
   "dependencies": {
     "node-fetch": "^3.3.2"
   },
   "overrides": {
-  "markdown-it": "^14.1.1",
-  "minimatch": "^10.2.1"
+    "markdown-it": "^14.1.1",
+    "minimatch": "^10.2.1"
   }
 }

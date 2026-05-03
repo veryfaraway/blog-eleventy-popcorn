@@ -62,7 +62,8 @@ module.exports = {
     post: {
       prevPost: "이전 글",
       nextPost: "다음 글",
-      draft: "초안 (Draft)"
+      draft: "초안 (Draft)",
+      relatedPosts: "관련 글"
     }
   },
   en: {
@@ -128,7 +129,8 @@ module.exports = {
     post: {
       prevPost: "Previous Post",
       nextPost: "Next Post",
-      draft: "Draft"
+      draft: "Draft",
+      relatedPosts: "Related Posts"
     }
   }
 };
