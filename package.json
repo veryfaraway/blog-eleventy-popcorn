@@ -9,7 +9,7 @@
     "watch": "eleventy --watch",
     "watch:css": "tailwindcss -i ./src/css/input.css -o ./src/css/style.css --watch",
     "build:css": "tailwindcss -i ./src/css/input.css -o ./src/css/style.css --minify",
-    "postinstall": "node node_modules/@veryfaraway/eleventy-theme/scripts/sync-templates.js",
+    "postinstall": "test -f node_modules/@veryfaraway/eleventy-theme/scripts/sync-templates.js \\\n+      && node node_modules/@veryfaraway/eleventy-theme/scripts/sync-templates.js \\\n+      || echo 'skip sync-templates'",
     "new": "node scripts/new-post.js"
   },
   "keywords": [
