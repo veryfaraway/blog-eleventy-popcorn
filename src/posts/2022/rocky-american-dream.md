@@ -10,7 +10,7 @@ category: "아는 척하기 딱 좋은"
 tags:
   - "Sylvester Stallone"
   - Rocky
-thumbnail: /assets/images/thumbnail/rocky-american-dream.jpg
+thumbnail: https://res.cloudinary.com/doal3ofyr/image/upload/v1777813897/media/movie/Rocky/rocky-american-dream_vbhdl8.jpg
 ---
 
 {% person "실베스터 스탤론", "록키 발보아 역 / 각본 / 감독", "https://m.media-amazon.com/images/M/MV5BMTQwMTk3NDU2OV5BMl5BanBnXkFtZTcwNTA3MTI0Mw@@._V1_UY317_CR6,0,214,317_AL_.jpg", "", "nm0000230" %} 
