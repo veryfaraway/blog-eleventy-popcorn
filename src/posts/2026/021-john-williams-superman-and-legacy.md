@@ -12,6 +12,8 @@ tags:
   - 존윌리엄스
   - 스타워즈
 thumbnail: https://res.cloudinary.com/doal3ofyr/image/upload/v1774461637/media/movie/Superman/superman_slogan_ihlnpa.jpg
+series: "존 윌리엄스: 연필 한 자루로 우주를 만든 사람"
+series_order: 2
 ---
 
 > 슈퍼맨이 하늘로 솟구칠 때, 어떤 음악이 들려야 하는가. 그 질문 앞에서 40년 넘게 모든 답은 결국 하나로 돌아왔다. 존 윌리엄스.
@@ -168,8 +170,3 @@ BAFTA 수상: 7회
 
 {% cloudinary "https://res.cloudinary.com/doal3ofyr/image/upload/v1774461471/media/movie/Superman/superman40th_apfamt.jpg", "슈퍼맨 40주년 기념 포스터" %}
 
----
-
-**이 글은 시리즈의 2편입니다.**
-
-- 이전 편: [존 윌리엄스 ①: 뉴욕 소년이 우주를 작곡하기까지](/posts/2026/john-williams-life-and-star-wars)

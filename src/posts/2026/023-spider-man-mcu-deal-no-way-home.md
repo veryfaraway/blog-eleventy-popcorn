@@ -89,9 +89,3 @@ flowchart LR
 
 그리고 그 이야기는 2026년 7월, 새로운 영화에서 이어집니다.
 
----
-
-**이 글은 시리즈의 2편입니다.**
-
-- 이전 편: [스파이더맨은 왜 소니 영화인가?](/posts/2026/spider-man-sony-rights-history)
-- 다음 편: [브랜드 뉴 데이 예고편 완벽 분석: 등장인물, 빌런, 그리고 X맨 떡밥](/posts/2026/spider-man-brand-new-day-trailer-analysis)

@@ -12,6 +12,8 @@ tags:
   - 존윌리엄스
   - 스타워즈
 thumbnail: https://res.cloudinary.com/doal3ofyr/image/upload/v1774458935/media/movie/Star%20Wars/star_wars_music_by_john_williams_j0iqhe.jpg
+series: "존 윌리엄스: 연필 한 자루로 우주를 만든 사람"
+series_order: 1
 ---
 
 > 그는 우주를 본 적이 없다. 외계인을 만난 적도, 상어에게 쫓긴 적도 없다. 그런데 어떻게, 연필 한 자루로 우리를 우주로 데려가고, 깊은 바다 속 공포를 심장 박동으로 옮겨놓을 수 있었을까.
@@ -149,8 +151,3 @@ thumbnail: https://res.cloudinary.com/doal3ofyr/image/upload/v1774458935/media/m
 
 다음 편에서는 또 하나의 신화, 트럼펫 세 음이 '정의(正義)'의 소리가 된 《슈퍼맨》 테마, 그리고 한스 짐머와의 세기의 대결, 그리고 93세의 노장이 지금도 연필을 놓지 않는 이유를 이야기합니다.
 
----
-
-**이 글은 시리즈의 1편입니다.**
-
-- 다음 편: [존 윌리엄스 ②: 슈퍼맨의 나팔 소리와 마지막 아날로그 장인](/posts/2026/john-williams-superman-and-legacy)
