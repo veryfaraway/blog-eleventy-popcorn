@@ -2,13 +2,15 @@
 pagination:
   data: collections.tagList
   size: 1
-  alias: tag
-permalink: /tags/{{ tag | tagSlugify }}/
+  alias: tagData
+permalink: /tags/{{ tagData.slug }}/
 layout: base.njk
 ---
 
 {% set currentLang = page.lang or "ko" %}
-{% set allTaggedPosts = collections.blog | filterByTag(tag) %}
+{% set tag = tagData.original %}
+{% set tagSlug = tagData.slug %}
+{% set allTaggedPosts = collections.blog | filterByTag(tagSlug) %}
 {% set taggedPosts = allTaggedPosts | filterByLang(currentLang) %}
 {% if taggedPosts.length == 0 %}
     {# no posts for this language — show empty list (user requested language-only) #}
