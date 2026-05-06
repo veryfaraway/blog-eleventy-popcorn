@@ -63,51 +63,6 @@ module.exports = function (eleventyConfig) {
     { name: "나만 당할 수 없지", slug: "pro-tip" },
   ]);
 
-  // tagList collection: collect all unique tags from blog posts
-  // Store as objects with both original tag and slugified version
-  eleventyConfig.addCollection("tagList", function (collection) {
-    const tagMap = new Map();
-    
-    // Helper function to slugify tags (matching theme's tagSlugify)
-    function slugifyTag(tag) {
-      if (!tag) return "";
-      const str = String(tag).trim();
-      const hasCJK = /[\u1100-\u11FF\u3130-\u318F\uAC00-\uD7AF\u4E00-\u9FFF]/.test(str);
-      if (hasCJK) {
-        return str
-          .replace(/\s+/g, "-")
-          .replace(/[^\uAC00-\uD7AF\u1100-\u11FF\u3130-\u318F\u4E00-\u9FFF\w-]/g, "")
-          .replace(/-+/g, "-")
-          .replace(/^-|-$/g, "");
-      }
-      return str
-        .toLowerCase()
-        .replace(/\+/g, "-plus")
-        .replace(/\./g, "-")
-        .replace(/[^\w\s-]/g, "")
-        .replace(/\s+/g, "-")
-        .replace(/-+/g, "-")
-        .replace(/^-|-$/g, "");
-    }
-    
-    collection.getAll().forEach((item) => {
-      if (item.data?.tags) {
-        item.data.tags.forEach((tag) => {
-          // Skip meta tags
-          if (tag !== "blog" && tag !== "post") {
-            const slug = slugifyTag(tag);
-            // Use slug as key to avoid duplicates (e.g., "Apple TV+" and "apple tv+" both become "apple-tv-plus")
-            if (!tagMap.has(slug)) {
-              tagMap.set(slug, { original: tag, slug: slug });
-            }
-          }
-        });
-      }
-    });
-    
-    return Array.from(tagMap.values()).sort((a, b) => a.slug.localeCompare(b.slug));
-  });
-
   return {
     ...baseConfig,
     dir: {
