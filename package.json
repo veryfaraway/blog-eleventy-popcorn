@@ -22,19 +22,19 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "@11ty/eleventy": "3.1.2",
+    "@11ty/eleventy": "^3.1.2",
     "@11ty/eleventy-img": "^6.0.4",
-    "@11ty/eleventy-plugin-syntaxhighlight": "^5.0.0",
+    "@11ty/eleventy-plugin-syntaxhighlight": "^5.0.2",
     "@mermaid-js/mermaid-cli": "^11.14.0",
-    "@tailwindcss/typography": "^0.5.10",
+    "@tailwindcss/typography": "^0.5.19",
     "@veryfaraway/eleventy-theme": "github:veryfaraway/blog-eleventy-theme",
+    "markdown-it": "^14.1.1",
     "tailwindcss": "^3.4.0"
   },
   "dependencies": {
     "node-fetch": "^3.3.2"
   },
   "overrides": {
-    "markdown-it": "^14.1.1",
     "minimatch": "^10.2.1"
   }
 }
