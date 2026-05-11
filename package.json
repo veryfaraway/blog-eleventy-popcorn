@@ -4,13 +4,14 @@
   "description": "개인 블로그 - 영화/게임/여행",
   "main": "index.js",
   "scripts": {
-    "dev": "npm run watch:css & eleventy --serve",
+    "dev": "concurrently \"npm run watch:css\" \"eleventy --serve\"",
     "build": "ELEVENTY_ENV=production npm run build:css && ELEVENTY_ENV=production eleventy",
     "watch": "eleventy --watch",
     "watch:css": "tailwindcss -i ./src/css/input.css -o ./src/css/style.css --watch",
     "build:css": "tailwindcss -i ./src/css/input.css -o ./src/css/style.css --minify",
     "postinstall": "node node_modules/@veryfaraway/eleventy-theme/scripts/sync-templates.js || echo 'skip sync-templates'",
-    "new": "node scripts/new-post.js"
+    "new": "node scripts/new-post.js",
+    "check:theme-sync": "node ../blog-eleventy-theme/scripts/check-theme-sync.js"
   },
   "keywords": [
     "eleventy",
@@ -28,6 +29,7 @@
     "@mermaid-js/mermaid-cli": "^11.14.0",
     "@tailwindcss/typography": "^0.5.19",
     "@veryfaraway/eleventy-theme": "github:veryfaraway/blog-eleventy-theme",
+    "concurrently": "^9.2.1",
     "markdown-it": "^14.1.1",
     "tailwindcss": "^3.4.0"
   },

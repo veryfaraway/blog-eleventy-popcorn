@@ -22,8 +22,8 @@ module.exports = {
   omdbApiKey: process.env.OMDB_API_KEY || ""
 };
 
-// 빌드 시 환경 변수 확인 (디버깅용)
-if (process.env.NODE_ENV === 'production' || process.env.ELEVENTY_ENV === 'production') {
+// 빌드 시 환경 변수 확인 (디버깅용 - DEBUG_BUILD_ENV=true 시 출력)
+if (process.env.DEBUG_BUILD_ENV === 'true') {
   console.log('🔍 Environment Variables Check:');
   console.log('- GOOGLE_ANALYTICS_ID:', process.env.GOOGLE_ANALYTICS_ID ? '✅ Set' : '❌ Not set');
   console.log('- ADSENSE_ENABLED:', process.env.ADSENSE_ENABLED);

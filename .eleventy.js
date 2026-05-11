@@ -11,46 +11,48 @@ module.exports = function (eleventyConfig) {
     redirects: { enabled: true },
   });
 
+  const isDraft = (item) => item.data.draft === true;
+
   // Popcorn: category collections
   eleventyConfig.addCollection("스포일러 지뢰찾기", function (collection) {
     return collection
       .getAll()
-      .filter((item) => item.data.category === "스포일러 지뢰찾기")
+      .filter((item) => item.data.category === "스포일러 지뢰찾기" && !isDraft(item))
       .sort((a, b) => b.date - a.date);
   });
 
   eleventyConfig.addCollection("아는 척하기 딱 좋은", function (collection) {
     return collection
       .getAll()
-      .filter((item) => item.data.category === "아는 척하기 딱 좋은")
+      .filter((item) => item.data.category === "아는 척하기 딱 좋은" && !isDraft(item))
       .sort((a, b) => b.date - a.date);
   });
 
   eleventyConfig.addCollection("컨트롤이 안 되면 머리로", function (collection) {
     return collection
       .getAll()
-      .filter((item) => item.data.category === "컨트롤이 안 되면 머리로")
+      .filter((item) => item.data.category === "컨트롤이 안 되면 머리로" && !isDraft(item))
       .sort((a, b) => b.date - a.date);
   });
 
   eleventyConfig.addCollection("여기도 한국이었어?", function (collection) {
     return collection
       .getAll()
-      .filter((item) => item.data.category === "여기도 한국이었어?")
+      .filter((item) => item.data.category === "여기도 한국이었어?" && !isDraft(item))
       .sort((a, b) => b.date - a.date);
   });
 
   eleventyConfig.addCollection("비행기 값이 안 아까운", function (collection) {
     return collection
       .getAll()
-      .filter((item) => item.data.category === "비행기 값이 안 아까운")
+      .filter((item) => item.data.category === "비행기 값이 안 아까운" && !isDraft(item))
       .sort((a, b) => b.date - a.date);
   });
 
   eleventyConfig.addCollection("나만 당할 수 없지", function (collection) {
     return collection
       .getAll()
-      .filter((item) => item.data.category === "나만 당할 수 없지")
+      .filter((item) => item.data.category === "나만 당할 수 없지" && !isDraft(item))
       .sort((a, b) => b.date - a.date);
   });
 
