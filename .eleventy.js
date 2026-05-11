@@ -5,6 +5,7 @@ module.exports = function (eleventyConfig) {
   // All common shortcodes (youtube, cloudinary, movie, person, personInline, button)
   // are registered by the theme plugin.
   const baseConfig = theme(eleventyConfig, {
+    tagColor: "sunset", // primary, ocean, sunset, forest, neon
     comments: { provider: "auto", utterances: { theme: "github-light", issueTerm: "pathname" } },
     mermaid: { enabled: true, mode: "buildtime" },
     permalink: { mode: "computed", stripNumericPrefix: true, enableLangParam: false },
